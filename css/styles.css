@@ -445,8 +445,8 @@ h1, h2, h3, h4, h5, h6 {
    ============================================================ */
 .hero {
   background-color: var(--color-primary);
-  padding-top: 1rem;
-  padding-bottom: 0;
+  padding-top: 2.5rem;
+  padding-bottom: 2rem;
   overflow: hidden;
 }
 
@@ -496,7 +496,7 @@ h1, h2, h3, h4, h5, h6 {
 /* Desktop hero */
 @media (min-width: 768px) {
   .hero {
-    padding-top: 1rem;
+    padding-top: 2.5rem;
   }
 
   .hero-inner {
@@ -533,14 +533,11 @@ h1, h2, h3, h4, h5, h6 {
    12. THIS WEEK SUMMARY CARD
    ============================================================ */
 .section-summary {
-  padding-block: var(--sp-8) var(--sp-6);
+  padding-block: var(--sp-2) 0;
 }
 
 .summary-card {
-  background-color: #ffffff;
-  border-radius: var(--r-md);
-  padding: var(--sp-6) var(--sp-6) var(--sp-2);
-  box-shadow: var(--shadow-card);
+  padding: var(--sp-6) 0 var(--sp-2);
 }
 
 .summary-card .btn {
@@ -554,17 +551,29 @@ h1, h2, h3, h4, h5, h6 {
   margin-bottom: var(--sp-3);
 }
 
+.summary-label {
+  display: block;
+  font-size: 0.75rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.1em;
+  color: var(--color-primary);
+  margin-bottom: var(--sp-2);
+}
+
 .summary-date {
   font-family: var(--font-heading);
-  font-size: 1.375rem;
-  font-weight: 600;
-  color: var(--color-primary);
-  margin-bottom: var(--sp-3);
-  /* h2 semantics, not default heading size */
+  font-size: 1.75rem;
+  font-weight: 700;
+  color: var(--color-text);
+  margin-bottom: var(--sp-1);
 }
+
 .summary-time {
-  font-size: 0.9em;
-  font-weight: 400;
+  font-size: 1rem;
+  font-weight: 500;
+  color: var(--color-primary);
+  margin-bottom: var(--sp-4);
 }
 
 .summary-text {
@@ -576,7 +585,7 @@ h1, h2, h3, h4, h5, h6 {
 
 @media (min-width: 768px) {
   .summary-card {
-    padding: var(--sp-8) var(--sp-8) var(--sp-4);
+    padding: var(--sp-2) 0 var(--sp-8);
     display: grid;
     grid-template-columns: 1fr auto;
     grid-template-rows: auto auto auto;
@@ -602,8 +611,14 @@ h1, h2, h3, h4, h5, h6 {
   .summary-card .btn {
     grid-column: 2;
     grid-row: 1 / -1;
-    align-self: center;
+    align-self: end;
     white-space: nowrap;
+    transform: translateY(115px);
+  }
+
+  #summary-chips {
+    grid-column: 1;
+    margin-top: var(--sp-4);
   }
 }
 
@@ -611,7 +626,15 @@ h1, h2, h3, h4, h5, h6 {
    13. QUICK LINKS
    ============================================================ */
 .quick-links {
-  padding-block: var(--sp-6) var(--sp-10);
+  padding-block: var(--sp-3) var(--sp-4);
+}
+
+.quick-links::before {
+  content: '';
+  display: block;
+  width: calc(100% - var(--sp-10) * 2);
+  margin: 0 auto var(--sp-6);
+  border-top: 1px solid var(--color-border);
 }
 
 .quick-links-heading {
@@ -631,32 +654,34 @@ h1, h2, h3, h4, h5, h6 {
 /* ── Illustration tile ─────────────────────────────────────── */
 .quick-tile {
   display: flex;
-  flex-direction: column;
+  flex-direction: row;
   align-items: center;
-  text-align: center;
-  gap: var(--sp-2);
+  gap: var(--sp-4);
+  padding: var(--sp-2) var(--sp-4) var(--sp-2) 0;
+  border-right: 1px solid var(--color-border);
+}
+
+.quick-tile:last-child {
+  border-right: none;
+  padding-right: 0;
 }
 
 .quick-tile-img {
-  width: 150px;
-  height: 150px;
+  width: 110px;
+  height: 110px;
   object-fit: contain;
-  display: block;
+  flex-shrink: 0;
   transition: transform var(--ease);
-}
-
-@media (max-width: 480px) {
-  .quick-links-grid {
-    grid-template-columns: 1fr;
-  }
-  .quick-tile-img {
-    width: 80px;
-    height: 80px;
-  }
 }
 
 .quick-tile:hover .quick-tile-img {
   transform: translateY(-4px);
+}
+
+.quick-tile-body {
+  display: flex;
+  flex-direction: column;
+  gap: var(--sp-1);
 }
 
 .quick-tile-label {
@@ -674,8 +699,34 @@ h1, h2, h3, h4, h5, h6 {
   line-height: 1.4;
 }
 
-.quick-tile-btn {
-  margin-top: auto;
+.quick-tile-link {
+  font-size: 0.9rem;
+  font-weight: 600;
+  color: var(--color-primary);
+  text-decoration: none;
+  margin-top: var(--sp-1);
+}
+
+.quick-tile-link:hover {
+  text-decoration: underline;
+}
+
+@media (max-width: 600px) {
+  .quick-links-grid {
+    grid-template-columns: 1fr;
+  }
+  .quick-tile {
+    border-right: none;
+    border-bottom: 1px solid var(--color-border);
+    padding: var(--sp-3) 0;
+  }
+  .quick-tile:last-child {
+    border-bottom: none;
+  }
+  .quick-tile-img {
+    width: 80px;
+    height: 80px;
+  }
 }
 
 /* ============================================================

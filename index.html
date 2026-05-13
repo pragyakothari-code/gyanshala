@@ -11,7 +11,7 @@
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&family=Lora:ital,wght@0,400;0,600;0,700;1,400&display=swap" rel="stylesheet">
 
-  <link rel="stylesheet" href="css/styles.css?v=13">
+  <link rel="stylesheet" href="css/styles.css?v=33">
 </head>
 <body>
 
@@ -91,8 +91,9 @@
       <div class="container">
 
         <div class="summary-card">
-          <span class="label-accent" id="this-week-label">This Session</span>
-          <h2 class="summary-date js-summary-date">Sunday, May 3, 2026 <span class="summary-time">· 10:00 AM – 1:30 PM</span></h2>
+          <span id="this-week-label" class="summary-label">This Session</span>
+          <h2 class="summary-date js-summary-date">Sunday, May 3, 2026</h2>
+          <p class="summary-time">10:00 AM – 1:30 PM</p>
           <p class="summary-text js-summary-text">
             This session features <strong>Yoga classes</strong> for all Jainism
             tracks — Sanskaar, Gyan, Darshan, and Charitra — followed by Hindi
@@ -130,25 +131,31 @@
           <!-- Tile: Homework -->
           <div class="quick-tile">
             <img class="quick-tile-img" src="images/homework.png" alt="" aria-hidden="true">
-            <p class="quick-tile-label">Homework</p>
-            <p class="quick-tile-desc">Submit this session's assignments</p>
-            <a href="this-week.html#homework" class="btn btn-primary quick-tile-btn">Go to Homework</a>
+            <div class="quick-tile-body">
+              <p class="quick-tile-label">Homework</p>
+              <p class="quick-tile-desc">Submit this session's assignments</p>
+              <a href="this-week.html#homework" class="quick-tile-link">Go to Homework →</a>
+            </div>
           </div>
 
           <!-- Tile: Syllabus -->
           <div class="quick-tile">
             <img class="quick-tile-img" src="images/syllabus.png" alt="" aria-hidden="true">
-            <p class="quick-tile-label">Syllabus</p>
-            <p class="quick-tile-desc">Midterm &amp; final exam syllabi</p>
-            <a href="exams.html" class="btn btn-primary quick-tile-btn">View Syllabus</a>
+            <div class="quick-tile-body">
+              <p class="quick-tile-label">Syllabus</p>
+              <p class="quick-tile-desc">Midterm &amp; final<br>exam syllabi</p>
+              <a href="exams.html" class="quick-tile-link">View Syllabus →</a>
+            </div>
           </div>
 
           <!-- Tile: Schedule -->
           <div class="quick-tile">
             <img class="quick-tile-img" src="images/Schedule.png" alt="" aria-hidden="true">
-            <p class="quick-tile-label">Schedule</p>
-            <p class="quick-tile-desc">All class dates for the year</p>
-            <a href="schedule.html" class="btn btn-primary quick-tile-btn">View Schedule</a>
+            <div class="quick-tile-body">
+              <p class="quick-tile-label">Schedule</p>
+              <p class="quick-tile-desc">All class dates<br>for the year</p>
+              <a href="schedule.html" class="quick-tile-link">View Schedule →</a>
+            </div>
           </div>
 
         </div>
