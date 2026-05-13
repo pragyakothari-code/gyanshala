@@ -1,0 +1,464 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Exams — JVBNA Gyanshala</title>
+  <meta name="description" content="Midterm and final exam dates, syllabi, and preparation tips for JVBNA Gyanshala students.">
+
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&family=Lora:ital,wght@0,400;0,600;0,700;1,400&display=swap" rel="stylesheet">
+
+  <link rel="stylesheet" href="css/styles.css?v=13">
+</head>
+<body>
+
+  <!-- ================================================================
+       NAVIGATION
+       ================================================================ -->
+  <header class="site-header">
+    <nav class="nav" aria-label="Main navigation">
+      <div class="nav-brand">
+        <a href="index.html">JVBNA Gyanshala</a>
+      </div>
+      <input type="checkbox" id="nav-toggle" class="nav-toggle" aria-hidden="true">
+      <label for="nav-toggle" class="nav-toggle-label" aria-label="Toggle navigation menu">
+        <span></span><span></span><span></span>
+      </label>
+      <ul class="nav-links" role="list">
+        <li><a href="index.html">Home</a></li>
+        <li><a href="this-week.html">This Session</a></li>
+        <li><a href="schedule.html">Schedule</a></li>
+        <li><a href="exams.html" class="active" aria-current="page">Syllabus</a></li>
+      </ul>
+    </nav>
+  </header>
+
+  <main id="main-content">
+
+    <!-- ================================================================
+         PAGE HEADER
+         ================================================================ -->
+    <div class="page-intro">
+      <div class="container page-intro-inner">
+        <div class="page-intro-text">
+          <h1>Syllabus</h1>
+          <p>Midterm and final exam syllabi, dates, and preparation tips.</p>
+        </div>
+        <div class="page-intro-illus" aria-hidden="true">
+          <!-- ILLUSTRATION: syllabus.png -->
+          <div class="illus-card">
+            <img src="images/syllabus.png" alt="" width="200" height="200">
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="container">
+
+      <!-- ================================================================
+           EXAM DATES
+           Two prominent date cards: Midterm + Final.
+           ================================================================ -->
+      <section aria-labelledby="exam-dates-heading">
+        <h2 id="exam-dates-heading" class="syllabus-section-heading" style="padding-top: 2rem;">
+          Exam Dates
+        </h2>
+
+        <div class="exam-dates-grid">
+
+          <div class="exam-date-card" role="region" aria-label="Midterm exam details" data-phase="midterm">
+            <span class="exam-type-label">Midterm</span>
+            <p class="exam-date-large">Sunday, January 18, 2026 &nbsp;·&nbsp; 10:00 AM – 1:30 PM</p>
+          </div>
+
+          <div class="exam-date-card exam-date-card--final" role="region" aria-label="Final exam details" data-phase="final">
+            <span class="exam-type-label">Final</span>
+            <p class="exam-date-large">Sunday, May 17, 2026 &nbsp;·&nbsp; 10:00 AM – 1:30 PM</p>
+          </div>
+
+        </div>
+      </section>
+
+      <!-- ================================================================
+           SYLLABUS — one card per Jainism track
+           ================================================================ -->
+      <!-- Phase banner — populated by inline syllabus-gate script below -->
+      <div class="syllabus-phase-banner" id="syllabus-phase-banner">
+        <span class="syllabus-phase-pill" id="syllabus-phase-pill"></span>
+        <span class="syllabus-phase-msg" id="syllabus-phase-msg"></span>
+      </div>
+
+      <!-- ── Jainism tracks ── -->
+      <section class="syllabus-section" aria-labelledby="syllabus-heading">
+        <h2 id="syllabus-heading" class="syllabus-section-heading">Syllabi by Track</h2>
+        <div class="syllabus-grid">
+
+          <!-- Sanskaar -->
+          <div class="syllabus-card">
+            <div class="syllabus-card-header">
+              <h3 class="syllabus-card-title">Sanskaar</h3>
+            </div>
+            <div class="syllabus-card-body">
+              <div data-syllabus-phase="midterm">
+                <p class="syllabus-block-label">Midterm syllabus</p>
+                <p class="syllabus-block-text">Units 1–4 — Introduction to Jainism, the concept of Ahimsa, the Navkar Mantra, and Jain festivals (Paryushan, Diwali). Students should be able to recite the Navkar Mantra and explain its meaning.</p>
+              </div>
+              <div data-syllabus-phase="final">
+                <p class="syllabus-block-label">Final syllabus</p>
+                <p class="syllabus-block-text">Units 1–8 — Satya, Asteya, Aparigraha, Jain symbols, and stories of the Tirthankaras. Students will complete a short reflective essay.</p>
+              </div>
+            </div>
+            <div class="syllabus-card-footer">
+              <button type="button" class="btn btn-accent btn-sm btn-show-syllabus">Show full syllabus</button>
+            </div>
+          </div>
+
+          <!-- Gyan -->
+          <div class="syllabus-card">
+            <div class="syllabus-card-header">
+              <h3 class="syllabus-card-title">Gyan</h3>
+            </div>
+            <div class="syllabus-card-body">
+              <div data-syllabus-phase="midterm">
+                <p class="syllabus-block-label">Midterm syllabus</p>
+                <p class="syllabus-block-text">Units 1–4 — The five types of knowledge (Mati, Shrut, Avadhi, Manah Paryay, Keval Gyan), the concept of the soul (Atma), and karma theory basics.</p>
+              </div>
+              <div data-syllabus-phase="final">
+                <p class="syllabus-block-label">Final syllabus</p>
+                <p class="syllabus-block-text">Units 1–8 — the six dravya (substances), the nine tattvas, and selected passages from Uttaradhyayan Sutra for comprehension.</p>
+              </div>
+            </div>
+            <div class="syllabus-card-footer">
+              <button type="button" class="btn btn-accent btn-sm btn-show-syllabus">Show full syllabus</button>
+            </div>
+          </div>
+
+          <!-- Darshan -->
+          <div class="syllabus-card">
+            <div class="syllabus-card-header">
+              <h3 class="syllabus-card-title">Darshan</h3>
+            </div>
+            <div class="syllabus-card-body">
+              <div data-syllabus-phase="midterm">
+                <p class="syllabus-block-label">Midterm syllabus</p>
+                <p class="syllabus-block-text">Units 1–4 — Anekantavada (many-sided truth), Syadvada (conditional predication), and Nayavada (standpoints). Students should explain each doctrine with examples.</p>
+              </div>
+              <div data-syllabus-phase="final">
+                <p class="syllabus-block-label">Final syllabus</p>
+                <p class="syllabus-block-text">Units 1–8 — comparative Jain philosophy, the concept of liberation (Moksha), and selected readings from Tattvarthasutra.</p>
+              </div>
+            </div>
+            <div class="syllabus-card-footer">
+              <button type="button" class="btn btn-accent btn-sm btn-show-syllabus">Show full syllabus</button>
+            </div>
+          </div>
+
+          <!-- Charitra -->
+          <div class="syllabus-card">
+            <div class="syllabus-card-header">
+              <h3 class="syllabus-card-title">Charitra</h3>
+            </div>
+            <div class="syllabus-card-body">
+              <div data-syllabus-phase="midterm">
+                <p class="syllabus-block-label">Midterm syllabus</p>
+                <p class="syllabus-block-text">Units 1–4 — The five Mahavratas and twelve Anuvratas, right conduct (samyak charitra), and Jain ethics in modern life. Case-study discussion questions included.</p>
+              </div>
+              <div data-syllabus-phase="final">
+                <p class="syllabus-block-label">Final syllabus</p>
+                <p class="syllabus-block-text">Units 1–8 — the Shravakachara (lay conduct code), Jain dietary principles, and a practical project on applying Jain ethics at home.</p>
+              </div>
+            </div>
+            <div class="syllabus-card-footer">
+              <button type="button" class="btn btn-accent btn-sm btn-show-syllabus">Show full syllabus</button>
+            </div>
+          </div>
+
+        </div><!-- /.syllabus-grid -->
+      </section>
+
+      <!-- ── Hindi ── -->
+      <section class="syllabus-section" aria-labelledby="hindi-syllabus-heading">
+        <h2 id="hindi-syllabus-heading" class="syllabus-section-heading">Hindi</h2>
+        <div class="syllabus-grid">
+
+          <!-- Hindi Beginner -->
+          <div class="syllabus-card">
+            <div class="syllabus-card-header syllabus-card-header--hindi">
+              <h3 class="syllabus-card-title">Beginner</h3>
+            </div>
+            <div class="syllabus-card-body">
+              <div data-syllabus-phase="midterm">
+                <p class="syllabus-block-label">Midterm syllabus</p>
+                <p class="syllabus-block-text">Hindi alphabet (swar and vyanjan), basic vocabulary (numbers, colours, family members, body parts), and simple two-word sentences. Students should be able to read and write basic words in Devanagari script.</p>
+              </div>
+              <div data-syllabus-phase="final">
+                <p class="syllabus-block-label">Final syllabus</p>
+                <p class="syllabus-block-text">matras, simple sentences with subject–verb–object structure, common greetings, and a short written introduction about themselves in Hindi.</p>
+              </div>
+            </div>
+            <div class="syllabus-card-footer">
+              <button type="button" class="btn btn-accent btn-sm btn-show-syllabus">Show full syllabus</button>
+            </div>
+          </div>
+
+          <!-- Hindi Intermediate -->
+          <div class="syllabus-card">
+            <div class="syllabus-card-header syllabus-card-header--hindi">
+              <h3 class="syllabus-card-title">Intermediate</h3>
+            </div>
+            <div class="syllabus-card-body">
+              <div data-syllabus-phase="midterm">
+                <p class="syllabus-block-label">Midterm syllabus</p>
+                <p class="syllabus-block-text">Reading comprehension of short paragraphs, basic grammar (gender, singular/plural, basic tenses), common verbs, and simple conversational phrases. Students write 3–4 sentence passages on familiar topics.</p>
+              </div>
+              <div data-syllabus-phase="final">
+                <p class="syllabus-block-label">Final syllabus</p>
+                <p class="syllabus-block-text">karak (case markers), longer reading passages, letter-writing format, and an essay of 5–6 sentences on an assigned topic in Hindi.</p>
+              </div>
+            </div>
+            <div class="syllabus-card-footer">
+              <button type="button" class="btn btn-accent btn-sm btn-show-syllabus">Show full syllabus</button>
+            </div>
+          </div>
+
+          <!-- Hindi Advanced -->
+          <div class="syllabus-card">
+            <div class="syllabus-card-header syllabus-card-header--hindi">
+              <h3 class="syllabus-card-title">Advanced</h3>
+            </div>
+            <div class="syllabus-card-body">
+              <div data-syllabus-phase="midterm">
+                <p class="syllabus-block-label">Midterm syllabus</p>
+                <p class="syllabus-block-text">Kriya ke prakar (kinds of verb, page 180), vachan (singular–plural rules, pages 168–169), karak rules (pages 169–171), and sarvanaam (pronouns). Exercise 10 (page 181) is included in the exam scope.</p>
+              </div>
+              <div data-syllabus-phase="final">
+                <p class="syllabus-block-label">Final syllabus</p>
+                <p class="syllabus-block-text">kaal (tenses), paragraph and letter-writing structure (formal letter to the Gyanshala coordinator), and an essay using conjunctions and transitions on an assigned topic.</p>
+              </div>
+            </div>
+            <div class="syllabus-card-footer">
+              <button type="button" class="btn btn-accent btn-sm btn-show-syllabus">Show full syllabus</button>
+            </div>
+          </div>
+
+        </div><!-- /.syllabus-grid -->
+      </section>
+
+      <!-- ── Yoga & Prayers ── -->
+      <section class="syllabus-section" aria-labelledby="yoga-prayers-heading">
+        <h2 id="yoga-prayers-heading" class="syllabus-section-heading">Yoga &amp; Prayers</h2>
+        <div class="syllabus-grid">
+
+          <!-- Yoga -->
+          <div class="syllabus-card">
+            <div class="syllabus-card-header syllabus-card-header--yoga">
+              <h3 class="syllabus-card-title">Yoga</h3>
+            </div>
+            <div class="syllabus-card-body">
+              <div data-syllabus-phase="midterm">
+                <p class="syllabus-block-label">Midterm syllabus</p>
+                <p class="syllabus-block-text">Basic asanas (standing and seated poses), introduction to pranayama (deep breathing, anulom-vilom), and the connection between yoga and Jain principles of non-violence and mindfulness.</p>
+              </div>
+              <div data-syllabus-phase="final">
+                <p class="syllabus-block-label">Final syllabus</p>
+                <p class="syllabus-block-text">pranayama for focus and calm, guided relaxation, and a short reflection on how regular yoga practice supports spiritual well-being.</p>
+              </div>
+            </div>
+            <div class="syllabus-card-footer">
+              <button type="button" class="btn btn-accent btn-sm btn-show-syllabus">Show full syllabus</button>
+            </div>
+          </div>
+
+          <!-- Prayers -->
+          <div class="syllabus-card">
+            <div class="syllabus-card-header syllabus-card-header--prayers">
+              <h3 class="syllabus-card-title">Prayers</h3>
+            </div>
+            <div class="syllabus-card-body">
+              <div data-syllabus-phase="midterm">
+                <p class="syllabus-block-label">Midterm syllabus</p>
+                <p class="syllabus-block-text">Navkar Mantra (recitation and meaning), Samayik prayer, and the purpose and procedure of daily prayer in Jainism. Students should be able to recite and explain the Navkar Mantra from memory.</p>
+              </div>
+              <div data-syllabus-phase="final">
+                <p class="syllabus-block-label">Final syllabus</p>
+                <p class="syllabus-block-text">Pratikraman (repentance prayer), Chaityavandan, and the significance of the six Aavashyak (essential) daily rituals in Jain practice.</p>
+              </div>
+            </div>
+            <div class="syllabus-card-footer">
+              <button type="button" class="btn btn-accent btn-sm btn-show-syllabus">Show full syllabus</button>
+            </div>
+          </div>
+
+        </div><!-- /.syllabus-grid -->
+      </section>
+
+      <!-- ================================================================
+           PREPARATION TIPS
+           ================================================================ -->
+      <section class="prep-section" aria-labelledby="prep-heading">
+        <h2 id="prep-heading" class="prep-section-heading">Preparation Tips</h2>
+
+        <ul class="prep-tips-list">
+          <li>
+            <span class="prep-tip-number" aria-hidden="true">1</span>
+            <p class="prep-tip-text">
+              <strong>Review your class notes weekly,</strong> not just the night
+              before. Spending 10–15 minutes each evening going over what was
+              covered in Sunday's session is far more effective than cramming.
+            </p>
+          </li>
+          <li>
+            <span class="prep-tip-number" aria-hidden="true">2</span>
+            <p class="prep-tip-text">
+              <strong>Complete all homework on time.</strong> Homework questions
+              are closely aligned with exam topics — students who submit
+              consistently tend to score significantly higher.
+            </p>
+          </li>
+          <li>
+            <span class="prep-tip-number" aria-hidden="true">3</span>
+            <p class="prep-tip-text">
+              <strong>Talk about what you learned at home.</strong> Explaining
+              Jain concepts to a parent or sibling in your own words is one
+              of the best ways to check your understanding and retain what
+              you have studied.
+            </p>
+          </li>
+        </ul>
+
+      </section>
+
+    </div><!-- /.container -->
+
+  </main>
+
+  <!-- ================================================================
+       FULL SYLLABUS MODAL
+       ================================================================ -->
+  <div class="syllabus-modal-overlay" id="syllabus-modal" role="dialog" aria-modal="true" aria-labelledby="syllabus-modal-title" hidden>
+    <div class="syllabus-modal-box">
+      <div class="syllabus-modal-header">
+        <h2 class="syllabus-modal-title" id="syllabus-modal-title">Full Syllabus</h2>
+        <button type="button" class="syllabus-modal-close" aria-label="Close">✕</button>
+      </div>
+      <div class="syllabus-modal-body" id="syllabus-modal-body"></div>
+    </div>
+  </div>
+
+  <!-- ================================================================
+       FOOTER
+       ================================================================ -->
+  <footer class="site-footer" aria-label="Site footer">
+    <div class="container footer-inner">
+      <img src="images/footer.png" alt="JVBNA Gyanshala" class="footer-img">
+      <p class="footer-copy">&copy; 2026 JVBNA Gyanshala &middot; All rights reserved</p>
+    </div>
+  </footer>
+
+  <script>
+  (function () {
+    'use strict';
+
+    /* ── Exam dates ─────────────────────────────────────────────── */
+    var MIDTERM = new Date(2026, 0, 18); /* Jan 18 2026 */
+    var FINAL   = new Date(2026, 4, 17); /* May 17 2026 */
+
+    var today = new Date();
+    today.setHours(0, 0, 0, 0);
+
+    /* phase: 'midterm' | 'final' | 'complete' */
+    var phase = today < MIDTERM ? 'midterm'
+              : today <= FINAL  ? 'final'
+              : 'complete';
+
+    /* ── Show / hide syllabus phase blocks ─────────────────────── */
+    document.querySelectorAll('[data-syllabus-phase]').forEach(function (el) {
+      var show = phase === 'complete' || el.getAttribute('data-syllabus-phase') === phase;
+      el.style.display = show ? '' : 'none';
+    });
+
+    /* ── Show / hide exam date cards ───────────────────────────── */
+    document.querySelectorAll('[data-phase]').forEach(function (el) {
+      var show = phase === 'complete' || el.getAttribute('data-phase') === phase;
+      el.style.display = show ? '' : 'none';
+    });
+
+    /* ── Populate the phase banner ──────────────────────────────── */
+    var pill = document.getElementById('syllabus-phase-pill');
+    var msg  = document.getElementById('syllabus-phase-msg');
+    if (pill && msg) {
+      pill.textContent = '';
+      pill.className   = '';
+      if (phase === 'midterm') {
+        msg.textContent = 'Midterm exam syllabus — exam on January 18, 2026';
+      } else if (phase === 'final') {
+        msg.textContent = 'Final exam syllabus — exam on May 17, 2026';
+      } else {
+        msg.textContent = 'Both midterm and final exam syllabi are shown.';
+      }
+    }
+  })();
+  </script>
+
+  <script>
+  /* ── Full-syllabus modal ───────────────────────────────────────── */
+  (function () {
+    'use strict';
+
+    var overlay   = document.getElementById('syllabus-modal');
+    var modalBody = document.getElementById('syllabus-modal-body');
+    var titleEl   = document.getElementById('syllabus-modal-title');
+    var closeBtn  = overlay.querySelector('.syllabus-modal-close');
+    var lastFocus = null;
+
+    function openModal(card) {
+      /* Get subject name from the card header */
+      var heading = card.querySelector('.syllabus-card-title');
+      var subject = heading ? heading.textContent.trim() : 'Syllabus';
+      titleEl.textContent = subject + ' — Full Syllabus';
+
+      /* Copy the final-phase block's content into the modal */
+      var finalBlock = card.querySelector('[data-syllabus-phase="final"]');
+      modalBody.innerHTML = finalBlock
+        ? finalBlock.innerHTML
+        : '<p>Full syllabus not yet available.</p>';
+
+      lastFocus = document.activeElement;
+      overlay.hidden = false;
+      overlay.style.display = 'flex';
+      closeBtn.focus();
+    }
+
+    function closeModal() {
+      overlay.style.display = '';
+      overlay.hidden = true;
+      if (lastFocus) lastFocus.focus();
+    }
+
+    /* Open on button click */
+    document.querySelectorAll('.btn-show-syllabus').forEach(function (btn) {
+      btn.addEventListener('click', function () {
+        var card = btn.closest('.syllabus-card');
+        if (card) openModal(card);
+      });
+    });
+
+    /* Close via ✕ button */
+    closeBtn.addEventListener('click', closeModal);
+
+    /* Close on overlay background click */
+    overlay.addEventListener('click', function (e) {
+      if (e.target === overlay) closeModal();
+    });
+
+    /* Close on Escape */
+    document.addEventListener('keydown', function (e) {
+      if ((e.key === 'Escape' || e.key === 'Esc') && !overlay.hidden) closeModal();
+    });
+  })();
+  </script>
+  <script src="js/auth-modal.js"></script>
+</body>
+</html>

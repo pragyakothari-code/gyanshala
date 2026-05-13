@@ -1,0 +1,175 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>JVBNA Gyanshala — Jain Sunday School, New Jersey</title>
+  <meta name="description" content="JVBNA Gyanshala is a Jain Sunday school for students and families in New Jersey, offering Jainism, Hindi, SOL, and Yoga classes every Sunday.">
+
+  <!-- Google Fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&family=Lora:ital,wght@0,400;0,600;0,700;1,400&display=swap" rel="stylesheet">
+
+  <link rel="stylesheet" href="css/styles.css?v=13">
+</head>
+<body>
+
+  <!-- ================================================================
+       NAVIGATION
+       ================================================================ -->
+  <header class="site-header">
+    <nav class="nav" aria-label="Main navigation">
+
+      <div class="nav-brand">
+        <a href="index.html">JVBNA Gyanshala</a>
+      </div>
+
+      <!--
+        CSS-only hamburger.
+        DOM order matters: input must precede both label and ul
+        so the :checked ~ sibling selector reaches them.
+      -->
+      <input
+        type="checkbox"
+        id="nav-toggle"
+        class="nav-toggle"
+        aria-hidden="true"
+      >
+      <label
+        for="nav-toggle"
+        class="nav-toggle-label"
+        aria-label="Toggle navigation menu"
+      >
+        <span></span>
+        <span></span>
+        <span></span>
+      </label>
+
+      <ul class="nav-links" role="list">
+        <li><a href="index.html" class="active" aria-current="page">Home</a></li>
+        <li><a href="this-week.html">This Session</a></li>
+        <li><a href="schedule.html">Schedule</a></li>
+        <li><a href="exams.html">Syllabus</a></li>
+      </ul>
+    </nav>
+  </header>
+
+  <main id="main-content">
+
+    <!-- ================================================================
+         HERO
+         Full-width blue background, school name, tagline, CTA.
+         classroom-teacher.png sits in a white rounded card top-right.
+         ================================================================ -->
+    <section class="hero" aria-labelledby="hero-heading">
+      <div class="container hero-inner">
+
+        <div class="hero-text">
+          <h1 class="hero-title" id="hero-heading">A Jain Sunday school</h1>
+          <p class="hero-tagline">Nurturing Jain values, one Sunday at a time.</p>
+        </div>
+
+        <div class="hero-illustration">
+          <!-- ILLUSTRATION: classroom-teacher.png -->
+          <img
+            src="images/classroom-teacher.png"
+            alt="A teacher at a chalkboard with three Gyanshala students"
+            width="420"
+            height="315"
+          >
+        </div>
+
+      </div>
+    </section>
+
+    <!-- ================================================================
+         THIS WEEK SUMMARY CARD
+         Chips (overdue + upcoming) injected by overdue.js.
+         ================================================================ -->
+    <section class="section-summary" aria-labelledby="this-week-label">
+      <div class="container">
+
+        <div class="summary-card">
+          <span class="label-accent" id="this-week-label">This Session</span>
+          <h2 class="summary-date js-summary-date">Sunday, May 3, 2026 <span class="summary-time">· 10:00 AM – 1:30 PM</span></h2>
+          <p class="summary-text js-summary-text">
+            This session features <strong>Yoga classes</strong> for all Jainism
+            tracks — Sanskaar, Gyan, Darshan, and Charitra — followed by Hindi
+            language sessions at every level. Check the full schedule for your
+            children's specific topics and homework.
+          </p>
+          <div class="summary-chips" id="summary-chips"></div>
+          <a href="this-week.html" class="btn btn-primary">
+            This Session's Classes →
+          </a>
+        </div>
+
+      </div>
+    </section>
+
+    <!-- Hidden anchor kept for overdue.js compat -->
+    <div id="overdue-alert" hidden aria-live="polite">
+      <p class="js-overdue-detail"></p>
+    </div>
+
+    <!-- ================================================================
+         QUICK LINKS
+         Three cards: Homework · Exam Syllabus · Past Classes.
+         Stacked on mobile, 3-column on 540 px+.
+         ================================================================ -->
+    <section class="quick-links" aria-labelledby="quick-links-heading">
+      <div class="container">
+
+        <h2 class="quick-links-heading" id="quick-links-heading">
+          Quick Links
+        </h2>
+
+        <div class="quick-links-grid">
+
+          <!-- Tile: Homework -->
+          <div class="quick-tile">
+            <img class="quick-tile-img" src="images/homework.png" alt="" aria-hidden="true">
+            <p class="quick-tile-label">Homework</p>
+            <p class="quick-tile-desc">Submit this session's assignments</p>
+            <a href="this-week.html#homework" class="btn btn-primary quick-tile-btn">Go to Homework</a>
+          </div>
+
+          <!-- Tile: Syllabus -->
+          <div class="quick-tile">
+            <img class="quick-tile-img" src="images/syllabus.png" alt="" aria-hidden="true">
+            <p class="quick-tile-label">Syllabus</p>
+            <p class="quick-tile-desc">Midterm &amp; final exam syllabi</p>
+            <a href="exams.html" class="btn btn-primary quick-tile-btn">View Syllabus</a>
+          </div>
+
+          <!-- Tile: Schedule -->
+          <div class="quick-tile">
+            <img class="quick-tile-img" src="images/Schedule.png" alt="" aria-hidden="true">
+            <p class="quick-tile-label">Schedule</p>
+            <p class="quick-tile-desc">All class dates for the year</p>
+            <a href="schedule.html" class="btn btn-primary quick-tile-btn">View Schedule</a>
+          </div>
+
+        </div>
+      </div>
+    </section>
+
+
+  </main>
+
+  <!-- ================================================================
+       FOOTER
+       ================================================================ -->
+  <footer class="site-footer" aria-label="Site footer">
+    <div class="container footer-inner">
+      <img src="images/footer.png" alt="JVBNA Gyanshala" class="footer-img">
+      <p class="footer-copy">&copy; 2026 JVBNA Gyanshala &middot; All rights reserved</p>
+    </div>
+  </footer>
+
+  <script src="js/sol-yoga.js"></script>
+  <script src="js/overdue.js"></script>
+  <script src="js/auth-modal.js"></script>
+</body>
+</html>

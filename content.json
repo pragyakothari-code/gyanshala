@@ -1,0 +1,81 @@
+{
+  "_note": "Fallback content used when Google Sheets is unavailable. Sheet columns: A=weekDate B=subject C=topic D=homework E=dueDate F=parentNotes. Subject format: 'Jainism · Darshan', 'Hindi · Advanced', 'SOL · Darshan', 'Yoga · all'.",
+  "values": [
+
+    ["2025-09-07", "Jainism · Charitra",  "Year 2 — Chapter 1",                "Read Chapter 1 and be ready to discuss in class.",                                                                                                            "", ""],
+    ["2025-09-07", "Hindi · Advanced",    "",                                   "", "", ""],
+    ["2025-09-07", "Yoga · all",          "Yoga Week",                          "", "", ""],
+
+    ["2025-09-14", "Jainism · Darshan",   "Gati, Leshya, and Parshavnath's Story", "Explain what is Leshya and name all the types. Read chapter 16 about Prabhu Parshavnath's life for group discussion.",                                  "", ""],
+    ["2025-09-14", "Jainism · Charitra",  "Chapter 2",                          "Research arguments for or against the idea that Jain religion is part of Hinduism. Give three points why one should follow religious activity.",               "", ""],
+    ["2025-09-14", "Hindi · Advanced",    "",                                   "", "", ""],
+    ["2025-09-14", "SOL · all",           "SOL Week",                           "", "", ""],
+
+    ["2025-09-28", "Jainism · Darshan",   "Introduction to Shravak and 5 Anuvratas", "Learn the names of leshya and the five Anuvratas. Discuss the concept of shravak with a parent. Choose one Anuvrata to practise until next class.", "", ""],
+    ["2025-09-28", "Jainism · Charitra",  "Punya and Paap",                     "Keep a daily log recording at least one Shubh Bhav, one Ashubh Bhav, and one Shuddh Bhav. Read the chapter on Punya and Paap.",                              "", ""],
+    ["2025-09-28", "Hindi · Advanced",    "",                                   "", "", ""],
+    ["2025-09-28", "Yoga · all",          "Yoga Week",                          "", "", ""],
+
+    ["2025-10-12", "Hindi · Advanced",    "Kriya ke Prakar — Kinds of Verb (page 180)", "Complete Exercise 10 on page 181.",                                                                                                                   "", ""],
+    ["2025-10-12", "SOL · all",           "SOL Week",                           "", "", ""],
+
+    ["2025-11-02", "Jainism · Charitra",  "Samayik",                            "Do one Samayik before next class. During the 48 minutes: read chapters on Samayik, Paap, and Punya, and say Navkar Mantra for 10 minutes. Write a log describing how you felt.", "", ""],
+    ["2025-11-02", "Hindi · Advanced",    "",                                   "", "", ""],
+    ["2025-11-02", "Yoga · all",          "Yoga Week",                          "", "", ""],
+
+    ["2025-11-16", "Jainism · Charitra",  "Samvaay",                            "Read the chapter. List instances from your own life for each Samvaay and connect each one with the concept.",                                                "", ""],
+    ["2025-11-16", "Hindi · Advanced",    "",                                   "", "", ""],
+    ["2025-11-16", "SOL · all",           "SOL Week",                           "", "", ""],
+
+    ["2025-12-07", "Jainism · Charitra",  "",                                   "", "", ""],
+    ["2025-12-07", "Hindi · Advanced",    "",                                   "", "", ""],
+    ["2025-12-07", "Yoga · all",          "",                                   "", "", ""],
+
+    ["2025-12-14", "Jainism · Charitra",  "",                                   "", "", ""],
+    ["2025-12-14", "Hindi · Advanced",    "",                                   "", "", ""],
+    ["2025-12-14", "SOL · all",           "",                                   "", "", ""],
+
+    ["2026-01-04", "Jainism · Charitra",  "",                                   "", "", ""],
+    ["2026-01-04", "Hindi · Advanced",    "",                                   "", "", ""],
+    ["2026-01-04", "Yoga · all",          "",                                   "", "", ""],
+
+    ["2026-02-01", "Jainism · Charitra",  "",                                   "", "", ""],
+    ["2026-02-01", "Hindi · Advanced",    "",                                   "", "", ""],
+    ["2026-02-01", "SOL · all",           "",                                   "", "", ""],
+
+    ["2026-02-15", "Jainism · Darshan",   "Midterm review",                     "Choose 5 items from Upbhoparibhog Anuvrata that you personally use (e.g. chocolates, clothing, pencils). Make a list and be ready to share it in class.",    "", ""],
+    ["2026-02-15", "Jainism · Charitra",  "Naam Karma",                         "Read the chapter. Study Acharya Mahashramanji's life and assess his karmic standing. Reflect on your own actions and explore ways to improve your personal karma.", "", ""],
+    ["2026-02-15", "Hindi · Advanced",    "Vachan — Singular to Plural Rules",  "Practise the singular-to-plural rules on pages 168–169. Review Karak rules on pages 169–171 and complete Exercise 10 (page 181).",                         "", ""],
+    ["2026-02-15", "Yoga · all",          "Yoga Week",                          "", "", ""],
+
+    ["2026-03-01", "Jainism · Charitra",  "Acharya Tulsi and Agam Vakya",       "Choose an agam quote that resonates with you and explain why you want to follow it. Identify one contribution by Acharya Tulsi that appeals to you most and write about it.", "", ""],
+    ["2026-03-01", "Hindi · Advanced",    "Karak and Sarvanaam",                "Complete the Karak and Sarvanaam exercises from class.",                                                                                                       "", ""],
+    ["2026-03-01", "SOL · all",           "SOL Week",                           "", "", ""],
+
+    ["2026-03-15", "Jainism · Darshan",   "Samvar and Types of Bhay",           "Reflect on the things that make you fearful and the reasons behind that fear. Think about how you can overcome it — we will discuss in class.",               "", ""],
+    ["2026-03-15", "Jainism · Charitra",  "Gotra Karma",                        "Read the chapter on Gotra Karma. Summarise the types of pride and explain how you can be mindful to stay away from each type.",                              "", ""],
+    ["2026-03-15", "Hindi · Advanced",    "",                                   "", "", ""],
+    ["2026-03-15", "Yoga · all",          "Yoga Week",                          "", "", ""],
+
+    ["2026-03-29", "Jainism · Darshan",   "Completed chapter — Bhay",           "Read chapter 10 as pre-reading for next class.",                                                                                                               "", ""],
+    ["2026-03-29", "Jainism · Charitra",  "Antaraya Karma",                     "Evaluate your actions over the past 3 days. Record situations where you faced or bound Antaraya karma. Write what you will do differently with this awareness over the next 3 days.", "", ""],
+    ["2026-03-29", "Hindi · Advanced",    "Karak, Kaal (Tenses), and Sarvanaam","Complete the Kaal (tenses) exercises from class.",                                                                                                             "", ""],
+    ["2026-03-29", "SOL · all",           "SOL Week",                           "", "", ""],
+
+    ["2026-04-12", "Jainism · Charitra",  "Nine Tattvas — pages 222 onwards",   "Read pages 222–226. Make a chart of the tattvas showing the names of the subcategories they belong to.",                                                     "", ""],
+    ["2026-04-12", "Hindi · Advanced",    "Writing a letter to the Gyanshala coordinator", "Complete the letter begun in class (addressed to आदरणीय संचालिका जी). Include: what you enjoy most about Gyanshala, new skills you have gained, and your suggestions for improvement. Write 5–8 sentences in simple, correct Hindi.", "", ""],
+    ["2026-04-12", "Yoga · all",          "Yoga Week",                          "", "", ""],
+
+    ["2026-04-26", "Jainism · Darshan",   "6 Aavashyak rituals and Pratikraman", "Write about what is Pratikraman and describe our key rituals.",                                                                                            "", ""],
+    ["2026-04-26", "Jainism · Charitra",  "Pages 227–231",                      "Prepare questions on the assigned topics. Read all chapters in preparation for the upcoming test.",                                                           "May 2, 2026", ""],
+    ["2026-04-26", "Hindi · Advanced",    "",                                   "", "", ""],
+    ["2026-04-26", "SOL · all",           "SOL Week",                           "", "", ""],
+
+    ["2026-05-03", "Jainism · Darshan",   "Anekantavada — Many-Sided Truth",    "Write three short examples of how anekantavada applies to an everyday disagreement at home or school.",                                                       "May 17, 2026", ""],
+    ["2026-05-03", "Jainism · Charitra",  "The Five Mahavratas",                "List the five Mahavratas and write one sentence each explaining how you can apply each vow in daily life.",                                                   "May 17, 2026", ""],
+    ["2026-05-03", "Hindi · Advanced",    "Essay writing — Paragraph structure", "Write a short paragraph (6–8 sentences) in Hindi describing your favourite festival. Focus on conjunctions and transitions.",                               "May 17, 2026", ""],
+    ["2026-05-03", "SOL · Darshan",       "Syadvada and Open Thinking",         "", "", ""],
+    ["2026-05-03", "SOL · Charitra",      "Right Conduct — Samyak Charitra",    "", "", ""],
+    ["2026-05-03", "Yoga · all",          "Pranayama Breathing and Focus",      "", "", ""]
+  ]
+}

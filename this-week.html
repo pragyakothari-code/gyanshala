@@ -1,0 +1,360 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>This Session's Classes — JVBNA Gyanshala</title>
+  <meta name="description" content="View this week's Jainism, Hindi, and SOL or Yoga class content, homework, and submission links for JVBNA Gyanshala students.">
+
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&family=Lora:ital,wght@0,400;0,600;0,700;1,400&display=swap" rel="stylesheet">
+
+  <link rel="stylesheet" href="css/styles.css?v=13">
+</head>
+<body data-week="2026-05-03">
+
+  <!-- ================================================================
+       NAVIGATION
+       ================================================================ -->
+  <header class="site-header">
+    <nav class="nav" aria-label="Main navigation">
+      <div class="nav-brand">
+        <a href="index.html">JVBNA Gyanshala</a>
+      </div>
+      <input type="checkbox" id="nav-toggle" class="nav-toggle" aria-hidden="true">
+      <label for="nav-toggle" class="nav-toggle-label" aria-label="Toggle navigation menu">
+        <span></span>
+        <span></span>
+        <span></span>
+      </label>
+      <ul class="nav-links" role="list">
+        <li><a href="index.html">Home</a></li>
+        <li><a href="this-week.html" class="active" aria-current="page">This Session</a></li>
+        <li><a href="schedule.html">Schedule</a></li>
+        <li><a href="exams.html">Syllabus</a></li>
+      </ul>
+    </nav>
+  </header>
+
+  <main id="main-content">
+
+    <!-- ================================================================
+         PAGE HEADER
+         ================================================================ -->
+    <div class="page-intro">
+      <div class="container page-intro-inner">
+        <div class="page-intro-text">
+          <h1>This Session's Classes</h1>
+          <p>Sunday, May 3, 2026 &nbsp;·&nbsp; <span class="page-intro-time">10:00 AM – 1:30 PM</span></p>
+        </div>
+        <div class="page-intro-illus" aria-hidden="true">
+          <!-- ILLUSTRATION: homework.png -->
+          <div class="illus-card">
+            <img
+              src="images/this-week.png"
+              alt=""
+              width="260"
+              height="260"
+            >
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- ================================================================
+         TOP WEEK NAVIGATION
+         V1: buttons are visual only — week switching is v2.
+         ================================================================ -->
+    <nav class="week-nav" aria-label="Week navigation">
+      <div class="container week-nav-inner">
+
+        <!-- V1: no action; week-back navigation is v2 -->
+        <button type="button" class="week-nav-btn week-nav-btn-prev" aria-label="Previous week (coming in v2)" title="Week navigation coming in v2">
+          Prev
+        </button>
+
+        <div class="week-nav-center">
+          <span class="week-nav-date-label">May 3, 2026</span>
+        </div>
+
+        <!-- V1: no action; week-forward navigation is v2 -->
+        <button type="button" class="week-nav-btn week-nav-btn-next" aria-label="Next week (coming in v2)" title="Week navigation coming in v2">
+          Next
+        </button>
+
+      </div>
+    </nav>
+
+    <div class="container">
+
+      <!-- ================================================================
+           MY CHILDREN'S CLASSES SELECTOR
+           Background: #D6E8E2 (spec). Text #333333 on #D6E8E2 = 8.9:1 ✓.
+           "MY CHILDREN'S CLASSES" uses saffron badge (not saffron text —
+           saffron on #D6E8E2 is only 2.5:1, fails WCAG AA).
+           V1: dropdowns are visible and selectable but do NOT filter content
+           below — personalisation filtering is planned for v2.
+           ================================================================ -->
+      <div class="selector-card" aria-labelledby="selector-heading">
+
+        <span class="label-accent" id="selector-heading">My Children's Classes</span>
+
+        <div class="selector-grid">
+
+          <!-- Child 1 -->
+          <div class="selector-child">
+            <p class="selector-child-label">Child 1</p>
+
+            <div class="form-group">
+              <label for="c1-jainism" class="form-label">Jainism Track</label>
+              <div class="select-wrapper">
+                <select id="c1-jainism" class="field-select" aria-describedby="selector-v1-note">
+                  <option value="sanskaar" selected>Sanskaar</option>
+                  <option value="gyan">Gyan</option>
+                  <option value="darshan">Darshan</option>
+                  <option value="charitra">Charitra</option>
+                </select>
+              </div>
+            </div>
+
+            <div class="form-group">
+              <label for="c1-hindi" class="form-label">Hindi Level</label>
+              <div class="select-wrapper">
+                <select id="c1-hindi" class="field-select" aria-describedby="selector-v1-note">
+                  <option value="beginner" selected>Beginner</option>
+                  <option value="intermediate">Intermediate</option>
+                  <option value="advanced">Advanced</option>
+                </select>
+              </div>
+            </div>
+          </div>
+
+          <!-- Child 2 -->
+          <div class="selector-child">
+            <p class="selector-child-label">Child 2</p>
+
+            <div class="form-group">
+              <label for="c2-jainism" class="form-label">Jainism Track</label>
+              <div class="select-wrapper">
+                <select id="c2-jainism" class="field-select" aria-describedby="selector-v1-note">
+                  <option value="sanskaar">Sanskaar</option>
+                  <option value="gyan" selected>Gyan</option>
+                  <option value="darshan">Darshan</option>
+                  <option value="charitra">Charitra</option>
+                </select>
+              </div>
+            </div>
+
+            <div class="form-group">
+              <label for="c2-hindi" class="form-label">Hindi Level</label>
+              <div class="select-wrapper">
+                <select id="c2-hindi" class="field-select" aria-describedby="selector-v1-note">
+                  <option value="beginner">Beginner</option>
+                  <option value="intermediate" selected>Intermediate</option>
+                  <option value="advanced">Advanced</option>
+                </select>
+              </div>
+            </div>
+          </div>
+
+        </div><!-- /.selector-grid -->
+
+        <p class="selector-v1-note" id="selector-v1-note">
+          V1 — These selections are saved for reference but do not yet filter
+          the content cards below. Personalised filtering is planned for v2.
+        </p>
+
+      </div><!-- /.selector-card -->
+
+      <div class="children-grid">
+
+      <!-- ================================================================
+           CHILD 1 CLASSES
+           ================================================================ -->
+      <section class="child-section" id="child-1" aria-labelledby="child-1-heading">
+        <div id="homework"></div>
+
+        <div class="child-section-header">
+          <div class="child-section-header-text">
+            <h2 class="child-section-title" id="child-1-heading">Child 1</h2>
+            <span class="child-section-sub">Sanskaar &middot; Hindi Beginner</span>
+          </div>
+          <span class="child-hw-count" id="child-1-hw-count"></span>
+        </div>
+
+        <div class="child-cards">
+
+          <!-- ── Jainism card ── -->
+          <article class="class-card class-card--jainism" data-subject="Jainism" data-track="Sanskaar" aria-labelledby="c1-jain-heading">
+            <div class="class-card-left">
+              <span class="class-card-track">Jainism</span>
+              <h3 class="class-card-subject" id="c1-jain-heading">Sanskaar</h3>
+              <p class="class-card-section-label">What we learned</p>
+              <p class="class-card-section-content js-topic">This week we explored the concept of Ahimsa (non-violence) and its practical application in everyday decisions.</p>
+              <p class="class-card-parent-notes js-parent-notes" style="display:none"></p>
+            </div>
+            <div class="class-card-right">
+              <div class="class-card-hw-header">
+                <p class="class-card-hw-heading">Homework</p>
+                <p class="class-card-due js-due-date">Due May 17, 2026</p>
+              </div>
+              <div class="js-homework-section">
+                <p class="class-card-section-content js-homework">Write three examples of how you practise Ahimsa at home or at school. Bring your written answers next Sunday.</p>
+              </div>
+              <div class="class-card-footer">
+                <a href="#" class="btn btn-hw-submit btn-sm" data-form-url="#">Submit Homework</a>
+                <span class="badge badge-not-submitted" aria-label="Homework not yet submitted">Not submitted</span>
+              </div>
+            </div>
+          </article>
+
+          <!-- ── Hindi card ── -->
+          <article class="class-card class-card--hindi" data-subject="Hindi" data-track="Beginner" aria-labelledby="c1-hindi-heading">
+            <div class="class-card-left">
+              <span class="class-card-track">Hindi</span>
+              <h3 class="class-card-subject" id="c1-hindi-heading">Beginner Hindi</h3>
+              <p class="class-card-section-label">What we learned</p>
+              <p class="class-card-section-content js-topic">Introduction to the Hindi alphabet — vowels (swar) and the first set of consonants (vyanjan).</p>
+              <p class="class-card-parent-notes js-parent-notes" style="display:none"></p>
+            </div>
+            <div class="class-card-right">
+              <div class="class-card-hw-header">
+                <p class="class-card-hw-heading">Homework</p>
+                <p class="class-card-due js-due-date">Due May 17, 2026</p>
+              </div>
+              <div class="js-homework-section">
+                <p class="class-card-section-content js-homework">Complete worksheet pages 4–5: trace and write each vowel five times.</p>
+              </div>
+              <div class="class-card-footer">
+                <a href="#" class="btn btn-hw-submit btn-sm" data-form-url="#">Submit Homework</a>
+                <span class="badge badge-not-submitted" aria-label="Homework not yet submitted">Not submitted</span>
+              </div>
+            </div>
+          </article>
+
+        </div><!-- /.child-cards -->
+      </section>
+
+      <!-- ================================================================
+           CHILD 2 CLASSES
+           ================================================================ -->
+      <section class="child-section" id="child-2" aria-labelledby="child-2-heading">
+
+        <div class="child-section-header">
+          <div class="child-section-header-text">
+            <h2 class="child-section-title" id="child-2-heading">Child 2</h2>
+            <span class="child-section-sub">Gyan &middot; Hindi Intermediate</span>
+          </div>
+          <span class="child-hw-count" id="child-2-hw-count"></span>
+        </div>
+
+        <div class="child-cards">
+
+          <!-- ── Jainism card ── -->
+          <article class="class-card class-card--jainism" data-subject="Jainism" data-track="Gyan" aria-labelledby="c2-jain-heading">
+            <div class="class-card-left">
+              <span class="class-card-track">Jainism</span>
+              <h3 class="class-card-subject" id="c2-jain-heading">Gyan</h3>
+              <p class="class-card-section-label">What we learned</p>
+              <p class="class-card-section-content js-topic">This week introduced the Jain theory of knowledge (Gyan) — the five types of knowing.</p>
+              <p class="class-card-parent-notes js-parent-notes" style="display:none"></p>
+            </div>
+            <div class="class-card-right">
+              <div class="class-card-hw-header">
+                <p class="class-card-hw-heading">Homework</p>
+                <p class="class-card-due js-due-date">Due May 17, 2026</p>
+              </div>
+              <div class="js-homework-section">
+                <p class="class-card-section-content js-homework">Read pages 12–14 in the Gyan workbook. Write one paragraph explaining Mati Gyan in your own words.</p>
+              </div>
+              <div class="class-card-footer">
+                <a href="#" class="btn btn-hw-submit btn-sm" data-form-url="#">Submit Homework</a>
+                <span class="badge badge-not-submitted" aria-label="Homework not yet submitted">Not submitted</span>
+              </div>
+            </div>
+          </article>
+
+          <!-- ── Hindi card ── -->
+          <article class="class-card class-card--hindi" data-subject="Hindi" data-track="Intermediate" aria-labelledby="c2-hindi-heading">
+            <div class="class-card-left">
+              <span class="class-card-track">Hindi</span>
+              <h3 class="class-card-subject" id="c2-hindi-heading">Intermediate Hindi</h3>
+              <p class="class-card-section-label">What we learned</p>
+              <p class="class-card-section-content js-topic">This week focused on past-tense verb conjugation (bhoot kaal).</p>
+              <p class="class-card-parent-notes js-parent-notes" style="display:none"></p>
+            </div>
+            <div class="class-card-right">
+              <div class="class-card-hw-header">
+                <p class="class-card-hw-heading">Homework</p>
+                <p class="class-card-due js-due-date">Due May 17, 2026</p>
+              </div>
+              <div class="js-homework-section">
+                <p class="class-card-section-content js-homework">Write five sentences in Hindi about your day using past-tense verbs. Use at least three different verbs.</p>
+              </div>
+              <div class="class-card-footer">
+                <a href="#" class="btn btn-hw-submit btn-sm" data-form-url="#">Submit Homework</a>
+                <span class="badge badge-not-submitted" aria-label="Homework not yet submitted">Not submitted</span>
+              </div>
+            </div>
+          </article>
+
+        </div><!-- /.child-cards -->
+      </section>
+
+      </div><!-- /.children-grid -->
+
+    </div><!-- /.container -->
+
+    <!-- ================================================================
+         BOTTOM WEEK NAVIGATION (mirrors top nav)
+         ================================================================ -->
+    <nav class="week-nav week-nav-bottom" aria-label="Week navigation (bottom)">
+      <div class="container week-nav-inner">
+        <button type="button" class="week-nav-btn week-nav-btn-prev" aria-label="Previous week (coming in v2)" title="Week navigation coming in v2">
+          Prev
+        </button>
+        <div class="week-nav-center">
+          <span class="week-nav-date-label">May 3, 2026</span>
+        </div>
+        <button type="button" class="week-nav-btn week-nav-btn-next" aria-label="Next week (coming in v2)" title="Week navigation coming in v2">
+          Next
+        </button>
+      </div>
+    </nav>
+
+  </main>
+
+  <!-- Browse past classes link -->
+  <div class="past-classes-route">
+    <div class="container">
+      <a href="past-classes.html" class="past-classes-route-link">Browse all past classes →</a>
+    </div>
+  </div>
+
+  <!-- ================================================================
+       FOOTER
+       ================================================================ -->
+  <footer class="site-footer" aria-label="Site footer">
+    <div class="container footer-inner">
+      <img src="images/footer.png" alt="JVBNA Gyanshala" class="footer-img">
+      <p class="footer-copy">&copy; 2026 JVBNA Gyanshala &middot; All rights reserved</p>
+    </div>
+  </footer>
+
+  <!-- ================================================================
+       V1 SOL / YOGA TOGGLE
+       Flip thisWeekIsSOL manually each week.
+       true  → SOL week  (each Jainism-track card shows "[Track] SOL")
+       false → Yoga week (all SOL cards show "Yoga" instead)
+
+       Dynamic date-based toggling is planned for v2.
+       ================================================================ -->
+  <script src="js/sol-yoga.js?v=2"></script>
+  <script src="js/child-nav.js"></script>
+  <script src="js/data.js"></script>
+  <script src="js/submission.js"></script>
+  <script src="js/overdue.js"></script>
+  <script src="js/auth-modal.js"></script>
+</body>
+</html>

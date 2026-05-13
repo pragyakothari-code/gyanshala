@@ -1,0 +1,214 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Schedule — JVBNA Gyanshala</title>
+  <meta name="description" content="Full year class schedule for JVBNA Gyanshala — all session dates, subjects, and exam days.">
+
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&family=Lora:ital,wght@0,400;0,600;0,700;1,400&display=swap" rel="stylesheet">
+
+  <link rel="stylesheet" href="css/styles.css?v=13">
+</head>
+<body>
+
+  <!-- ================================================================
+       NAVIGATION
+       ================================================================ -->
+  <header class="site-header">
+    <nav class="nav" aria-label="Main navigation">
+      <div class="nav-brand">
+        <a href="index.html">JVBNA Gyanshala</a>
+      </div>
+      <input type="checkbox" id="nav-toggle" class="nav-toggle" aria-hidden="true">
+      <label for="nav-toggle" class="nav-toggle-label" aria-label="Toggle navigation menu">
+        <span></span><span></span><span></span>
+      </label>
+      <ul class="nav-links" role="list">
+        <li><a href="index.html">Home</a></li>
+        <li><a href="this-week.html">This Session</a></li>
+        <li><a href="schedule.html" class="active" aria-current="page">Schedule</a></li>
+        <li><a href="exams.html">Syllabus</a></li>
+      </ul>
+    </nav>
+  </header>
+
+  <main id="main-content">
+
+    <!-- ================================================================
+         PAGE HEADER
+         ================================================================ -->
+    <div class="page-intro">
+      <div class="container page-intro-inner">
+        <div class="page-intro-text">
+          <h1>Schedule</h1>
+          <p>All class sessions for the 2025–26 school year.</p>
+        </div>
+        <div class="page-intro-illus" aria-hidden="true">
+          <div class="illus-card">
+            <img src="images/Schedule.png" alt="" width="200" height="200">
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- ================================================================
+         TAB BAR
+         ================================================================ -->
+    <div class="container">
+      <div class="sched-tabs" role="tablist" aria-label="Schedule views">
+        <button class="sched-tab sched-tab--active" role="tab" id="tab-daily"
+                aria-controls="panel-daily" aria-selected="true">
+          Daily Schedule
+        </button>
+        <button class="sched-tab" role="tab" id="tab-year"
+                aria-controls="panel-year" aria-selected="false">
+          Year Calendar
+        </button>
+      </div>
+    </div>
+
+    <!-- ================================================================
+         TAB PANEL 1 — DAILY SCHEDULE
+         ================================================================ -->
+    <div class="container" id="panel-daily" role="tabpanel" aria-labelledby="tab-daily">
+      <div class="daily-sched-card">
+        <div class="schedule-strip-body">
+          <table class="schedule-table" aria-label="Class timetable">
+            <thead>
+              <tr>
+                <th class="st-time">Time</th>
+                <th class="st-group">Group</th>
+                <th class="st-subj">Subject</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr class="st-row--all">
+                <td class="st-time"><div class="st-time-inner">10:00 – 10:20 AM</div></td>
+                <td class="st-group">All Students</td>
+                <td>Assembly</td>
+              </tr>
+              <tr class="st-row--all">
+                <td class="st-time"><div class="st-time-inner">10:20 – 10:50 AM</div></td>
+                <td class="st-group">All Students</td>
+                <td>Yoga</td>
+              </tr>
+              <tr>
+                <td class="st-time" rowspan="3"><div class="st-time-inner">10:50 – 11:25 AM</div></td>
+                <td class="st-group">Sanskaar</td>
+                <td>Prayer</td>
+              </tr>
+              <tr>
+                <td class="st-group">Gyan</td>
+                <td>SOL / Bhaktamar</td>
+              </tr>
+              <tr class="st-row--highlight">
+                <td class="st-group">Darshan&nbsp;&amp;&nbsp;Charitra</td>
+                <td>Jainism</td>
+              </tr>
+              <tr class="st-row--break">
+                <td class="st-time"><div class="st-time-inner">11:25 – 11:35 AM</div></td>
+                <td class="st-group">All Students</td>
+                <td>Snack Break</td>
+              </tr>
+              <tr>
+                <td class="st-time" rowspan="3"><div class="st-time-inner">11:35 AM – 12:10 PM</div></td>
+                <td class="st-group">Sanskaar</td>
+                <td>Jainism</td>
+              </tr>
+              <tr>
+                <td class="st-group">Gyan</td>
+                <td>Jainism</td>
+              </tr>
+              <tr class="st-row--highlight">
+                <td class="st-group">Darshan&nbsp;&amp;&nbsp;Charitra</td>
+                <td>SOL / Bhaktamar</td>
+              </tr>
+              <tr class="st-row--all">
+                <td class="st-time"><div class="st-time-inner">12:10 – 12:45 PM</div></td>
+                <td class="st-group">All Students (opt-ins)</td>
+                <td>Hindi</td>
+              </tr>
+              <tr class="st-row--break">
+                <td class="st-time"><div class="st-time-inner">12:45 – 1:30 PM</div></td>
+                <td class="st-group">All</td>
+                <td>Lunch</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </div>
+
+    <!-- ================================================================
+         TAB PANEL 2 — YEAR CALENDAR
+         ================================================================ -->
+    <div class="container" id="panel-year" role="tabpanel" aria-labelledby="tab-year" hidden>
+
+      <!-- Legend -->
+      <div class="schedule-legend" aria-label="Subject legend">
+        <span class="sched-tag sched-tag--jainism">Jainism</span>
+        <span class="sched-tag sched-tag--hindi">Hindi</span>
+        <span class="sched-tag sched-tag--sol">SOL</span>
+        <span class="sched-tag sched-tag--yoga">Yoga</span>
+      </div>
+
+      <!-- Schedule list — populated by schedule.js -->
+      <div id="schedule-root" aria-live="polite">
+        <p class="schedule-loading">Loading schedule…</p>
+      </div>
+
+    </div><!-- /#panel-year -->
+
+  </main>
+
+  <!-- ================================================================
+       FOOTER
+       ================================================================ -->
+  <footer class="site-footer" aria-label="Site footer">
+    <div class="container footer-inner">
+      <img src="images/footer.png" alt="JVBNA Gyanshala" class="footer-img">
+      <p class="footer-copy">&copy; 2026 JVBNA Gyanshala &middot; All rights reserved</p>
+    </div>
+  </footer>
+
+  <script src="js/schedule.js"></script>
+  <script>
+    /* Vertically centre time text in rowspan cells.
+       CSS height:100% doesn't resolve on td children without an explicit
+       height on the td, so we read the real offsetHeight and set it. */
+    window.addEventListener('load', function () {
+      document.querySelectorAll('.schedule-table td.st-time').forEach(function (td) {
+        var inner = td.querySelector('.st-time-inner');
+        if (!inner) return;
+        inner.style.height = td.offsetHeight + 'px';
+      });
+    });
+  </script>
+  <script>
+    (function () {
+      var tabs   = document.querySelectorAll('.sched-tab');
+      var panels = document.querySelectorAll('[role="tabpanel"]');
+
+      tabs.forEach(function (tab) {
+        tab.addEventListener('click', function () {
+          /* Deactivate all */
+          tabs.forEach(function (t) {
+            t.classList.remove('sched-tab--active');
+            t.setAttribute('aria-selected', 'false');
+          });
+          panels.forEach(function (p) { p.hidden = true; });
+
+          /* Activate clicked tab */
+          tab.classList.add('sched-tab--active');
+          tab.setAttribute('aria-selected', 'true');
+          document.getElementById(tab.getAttribute('aria-controls')).hidden = false;
+        });
+      });
+    })();
+  </script>
+  <script src="js/auth-modal.js"></script>
+</body>
+</html>

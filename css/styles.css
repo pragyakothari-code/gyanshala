@@ -1,0 +1,2753 @@
+/*
+ * JVBNA Gyanshala — Main Stylesheet
+ * Mobile-first, no framework, no JS dependencies
+ *
+ * ─── WCAG AA Contrast Audit ───────────────────────────────────────────────────
+ * #F5F0E8 on #2E52A3  → ~6.3:1  ✓  passes AA  (primary blue nav/hero)
+ * #F5F0E8 on #1E3A80  → ~9.2:1  ✓  passes AA  (banner deep navy)
+ * #333333 on #F5F0E8  → ~11.7:1 ✓  passes AA
+ * #1E3A80 on #FFD039  →  7.0:1  ✓  passes AA  (deep navy text on illustration yellow)
+ * #FFD039 as text on #F5F0E8 → 1.3:1 ✗ — yellow is accent/bg only, never body text
+ * #333333 on #D5E2F5  → ~9.4:1  ✓  passes AA  (selector card light blue)
+ *
+ * Illustration blue (#4B73C8) is the vivid book/backpack blue from the
+ * supplied artwork. It is only ~3.7:1 on #F5F0E8, so it is used for
+ * decorative borders and badges, never as a background for body text.
+ * ──────────────────────────────────────────────────────────────────────────────
+ */
+
+/* ============================================================
+   1. DESIGN TOKENS
+   ============================================================ */
+:root {
+  /* Brand colours — blue palette derived from illustration artwork */
+  --color-primary:        #2E52A3; /* deep blue nav/hero — 6.3:1 on #F5F0E8 ✓ */
+  --color-primary-vivid:  #4B73C8; /* illustration book/backpack blue, decorative only */
+  --color-accent:         #FFD039; /* illustration yellow — sampled from artwork shirts/logo */
+  --color-bg:             #F5F0E8; /* warm off-white — unchanged */
+  --color-secondary:      #7A9DC8; /* muted blue, replaces muted teal */
+  --color-text:           #333333;
+
+  /* Derived / accessibility-safe variants */
+  --color-text-on-dark:   #F5F0E8; /* on primary bg — 6.3:1 ✓ */
+  --color-text-on-accent: #1E3A80; /* deep navy on yellow — 7.0:1 ✓ */
+  --color-banner:         #1E3A80; /* deep navy — #F5F0E8 on this = 9.2:1 ✓ */
+  --color-card-bg:        #FFFFFF; /* card surfaces — "never white" rule is page bg */
+  --color-border:         rgba(46, 82, 163, 0.14);
+  --color-primary-muted:  rgba(46, 82, 163, 0.08);
+
+  /* Typography */
+  --font-heading: 'Lora', Georgia, 'Times New Roman', serif;
+  --font-body:    'Inter', system-ui, -apple-system, sans-serif;
+
+  /* Spacing scale (base 4px) */
+  --sp-1:  0.25rem;   /*  4px */
+  --sp-2:  0.5rem;    /*  8px */
+  --sp-3:  0.75rem;   /* 12px */
+  --sp-4:  1rem;      /* 16px */
+  --sp-5:  1.25rem;   /* 20px */
+  --sp-6:  1.5rem;    /* 24px */
+  --sp-8:  2rem;      /* 32px */
+  --sp-10: 2.5rem;    /* 40px */
+  --sp-12: 3rem;      /* 48px */
+  --sp-16: 4rem;      /* 64px */
+  --sp-20: 5rem;      /* 80px */
+
+  /* Radii */
+  --r-sm: 4px;
+  --r-md: 8px;
+  --r-lg: 14px;
+  --r-xl: 20px;
+
+  /* Shadows */
+  --shadow-card:       0 2px 12px rgba(46, 82, 163, 0.09);
+  --shadow-card-hover: 0 6px 24px rgba(46, 82, 163, 0.16);
+  --shadow-nav:        0 2px 10px rgba(0, 0, 0, 0.18);
+
+  /* Layout */
+  --nav-height:      64px;
+  --container-max:   1280px;
+  --container-pad:   var(--sp-4);
+
+  /* Transitions */
+  --ease: 0.18s ease;
+}
+
+/* ============================================================
+   2. RESET & BASE
+   ============================================================ */
+*, *::before, *::after {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+/* Ensure [hidden] always works even inside flex/grid containers */
+[hidden] { display: none !important; }
+
+html {
+  font-size: 16px;
+  -webkit-text-size-adjust: 100%;
+  scroll-behavior: smooth;
+}
+
+body {
+  font-family: var(--font-body);
+  font-size: 1rem;
+  line-height: 1.65;
+  color: var(--color-text);
+  background-color: var(--color-bg);
+  min-height: 100dvh;
+}
+
+img, svg {
+  display: block;
+  max-width: 100%;
+  height: auto;
+}
+
+ul, ol { list-style: none; }
+
+a { color: inherit; text-decoration: none; }
+
+p { margin-bottom: var(--sp-4); }
+p:last-child { margin-bottom: 0; }
+
+/* ============================================================
+   3. TYPOGRAPHY
+   ============================================================ */
+h1, h2, h3, h4, h5, h6 {
+  font-family: var(--font-heading);
+  line-height: 1.2;
+  color: var(--color-text);
+}
+
+/* ============================================================
+   4. LAYOUT
+   ============================================================ */
+.container {
+  width: 100%;
+  max-width: var(--container-max);
+  margin-inline: auto;
+  padding-inline: var(--container-pad);
+}
+
+/* ============================================================
+   5. FOCUS STYLES
+   ============================================================ */
+:focus-visible {
+  outline: 3px solid var(--color-accent);
+  outline-offset: 3px;
+  border-radius: var(--r-sm);
+}
+
+/* Remove outline for mouse users */
+:focus:not(:focus-visible) { outline: none; }
+
+/* ============================================================
+   6. BUTTONS
+   ============================================================ */
+.btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: var(--sp-2);
+  padding: 0.8125rem 1.625rem; /* 13px 26px */
+  font-family: var(--font-body);
+  font-size: 1rem;
+  font-weight: 600;
+  line-height: 1;
+  border-radius: var(--r-md);
+  border: 2px solid transparent;
+  cursor: pointer;
+  text-decoration: none;
+  white-space: nowrap;
+  transition:
+    opacity   var(--ease),
+    transform var(--ease),
+    box-shadow var(--ease);
+  /* WCAG minimum touch target */
+  min-height: 44px;
+  min-width:  44px;
+}
+
+.btn:hover {
+  opacity: 0.88;
+  transform: translateY(-1px);
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.14);
+}
+
+.btn:active { transform: translateY(0); }
+
+/* Saffron — use dark text (6.1:1 contrast) */
+.btn-accent {
+  background-color: var(--color-accent);
+  color: var(--color-text-on-accent);
+  border-color: var(--color-accent);
+}
+
+/* Primary green */
+.btn-primary {
+  background-color: var(--color-primary);
+  color: var(--color-text-on-dark);
+  border-color: var(--color-primary);
+}
+
+/* Outlined */
+.btn-outline {
+  background-color: transparent;
+  color: var(--color-primary);
+  border-color: var(--color-primary);
+}
+
+.btn-outline:hover {
+  background-color: var(--color-primary-muted);
+}
+
+/* ============================================================
+   7. NAVIGATION
+   ============================================================ */
+.site-header {
+  position: sticky;
+  top: 0;
+  z-index: 200;
+  background-color: var(--color-primary);
+  height: var(--nav-height);
+  box-shadow: var(--shadow-nav);
+}
+
+.nav {
+  display: flex;
+  align-items: center;
+  height: 100%;
+  padding-inline: var(--container-pad);
+  max-width: var(--container-max);
+  margin-inline: auto;
+  position: relative; /* contains absolute mobile menu */
+}
+
+/* Brand */
+.nav-brand {
+  flex: 1;
+  min-width: 0;
+}
+
+.nav-brand a {
+  font-family: var(--font-heading);
+  font-size: 1.35rem;
+  font-weight: 700;
+  color: var(--color-text-on-dark);
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  display: block;
+}
+
+/* ── Hamburger toggle (CSS-only, mobile) ── */
+.nav-toggle {
+  /* Visually hidden but NOT display:none — :checked still triggers CSS siblings */
+  position: absolute;
+  opacity: 0;
+  width: 1px;
+  height: 1px;
+  pointer-events: none;
+}
+
+.nav-toggle-label {
+  /* 44×44 tap target */
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  gap: 5px;
+  width: 44px;
+  height: 44px;
+  padding: 10px;
+  cursor: pointer;
+  border-radius: var(--r-sm);
+  flex-shrink: 0;
+  transition: background-color var(--ease);
+}
+
+.nav-toggle-label:hover {
+  background-color: rgba(245, 240, 232, 0.1);
+}
+
+.nav-toggle-label span {
+  display: block;
+  width: 22px;
+  height: 2px;
+  background-color: var(--color-text-on-dark);
+  border-radius: 2px;
+  transition: transform 0.22s ease, opacity 0.18s ease;
+  transform-origin: center;
+}
+
+/* Animate hamburger → × */
+.nav-toggle:checked ~ .nav-toggle-label span:nth-child(1) {
+  transform: translateY(7px) rotate(45deg);
+}
+.nav-toggle:checked ~ .nav-toggle-label span:nth-child(2) {
+  opacity: 0;
+  transform: scaleX(0.2);
+}
+.nav-toggle:checked ~ .nav-toggle-label span:nth-child(3) {
+  transform: translateY(-7px) rotate(-45deg);
+}
+
+/* ── Mobile nav links (hidden by default) ── */
+.nav-links {
+  display: none;
+  position: absolute;
+  top: 100%;
+  left: 0;
+  right: 0;
+  background-color: var(--color-primary);
+  flex-direction: column;
+  padding: var(--sp-3) var(--sp-4) var(--sp-4);
+  gap: var(--sp-1);
+  border-top: 1px solid rgba(245, 240, 232, 0.18);
+  box-shadow: 0 6px 16px rgba(0, 0, 0, 0.18);
+  z-index: 10;
+}
+
+.nav-toggle:checked ~ .nav-links {
+  display: flex;
+}
+
+.nav-links li a {
+  color: var(--color-text-on-dark);
+  font-size: 1rem;
+  font-weight: 500;
+  padding: var(--sp-3) var(--sp-4);
+  display: flex;
+  align-items: center;
+  min-height: 44px;
+  border-radius: var(--r-sm);
+  position: relative;
+  transition: background-color var(--ease);
+}
+
+.nav-links li a:hover {
+  background-color: rgba(245, 240, 232, 0.1);
+}
+
+.nav-links li a.active {
+  font-weight: 600;
+}
+
+.nav-links li a.active::after {
+  content: '';
+  position: absolute;
+  inset-inline: var(--sp-4);
+  bottom: 8px;
+  height: 2px;
+  background-color: var(--color-accent);
+  border-radius: 2px;
+}
+
+/* ── Desktop nav ── */
+@media (min-width: 768px) {
+  .nav-toggle-label {
+    display: none;
+  }
+
+  /* Override the mobile hide */
+  .nav-links {
+    display: flex !important;
+    position: static;
+    flex-direction: row;
+    align-items: center;
+    padding: 0;
+    gap: var(--sp-1);
+    background: transparent;
+    border-top: none;
+    box-shadow: none;
+  }
+
+  .nav-links li a {
+    padding-inline: var(--sp-3);
+  }
+
+  .nav-links li a.active::after {
+    inset-inline: var(--sp-3);
+    bottom: 3px;
+    height: 3px;
+  }
+}
+
+/* ============================================================
+   8. SCREEN READER UTILITY
+   ============================================================ */
+.sr-only {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  overflow: hidden;
+  clip: rect(0 0 0 0);
+  white-space: nowrap;
+}
+
+/* ============================================================
+   9. ILLUSTRATION PLACEHOLDERS
+   ============================================================ */
+.illus-placeholder {
+  background-color: var(--color-primary-muted);
+  border: 2px dashed rgba(46, 82, 163, 0.25);
+  border-radius: var(--r-lg);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: var(--sp-2);
+  color: rgba(46, 82, 163, 0.45);
+  font-size: 0.8125rem;
+  font-style: italic;
+  text-align: center;
+  padding: var(--sp-4);
+}
+
+.illus-placeholder--on-dark {
+  background-color: rgba(245, 240, 232, 0.08);
+  border-color: rgba(245, 240, 232, 0.2);
+  color: rgba(245, 240, 232, 0.4);
+}
+
+/* Simple book icon drawn in CSS for placeholders */
+.illus-placeholder::before {
+  content: '';
+  display: block;
+  width: 32px;
+  height: 40px;
+  border: 2px solid currentColor;
+  border-radius: 2px 4px 4px 2px;
+  position: relative;
+}
+
+/* ============================================================
+   10. LABEL / BADGE COMPONENTS
+   ============================================================ */
+.label-accent {
+  display: inline-block;
+  background-color: var(--color-accent);
+  color: var(--color-text-on-accent);
+  font-family: var(--font-body);
+  font-size: 0.6875rem;  /* 11px — large enough to be readable */
+  font-weight: 700;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  padding: var(--sp-1) var(--sp-2);
+  border-radius: var(--r-sm);
+  line-height: 1.4;
+}
+
+/* ============================================================
+   11. HERO SECTION
+   ============================================================ */
+.hero {
+  background-color: var(--color-primary);
+  padding-top: 1rem;
+  padding-bottom: 0;
+  overflow: hidden;
+}
+
+@media (max-width: 767px) {
+  .hero-illustration {
+    padding-bottom: var(--sp-8);
+  }
+}
+
+.hero-inner {
+  display: flex;
+  flex-direction: column;
+  gap: 1.35rem;             /* var(--sp-6) × 0.9 */
+}
+
+.hero-text {
+  flex: 1 1 auto;
+  padding-bottom: 2.25rem;  /* var(--sp-10) × 0.9 */
+}
+
+.hero-title {
+  font-family: var(--font-heading);
+  font-size: 2rem;
+  font-weight: 700;
+  color: var(--color-text-on-dark);
+  line-height: 1.2;
+  margin-bottom: var(--sp-2);
+  white-space: normal;
+}
+
+.hero-tagline {
+  font-size: 1.0625rem;
+  color: var(--color-text-on-dark);
+  opacity: 0.88;
+  margin-bottom: var(--sp-6);
+  max-width: 38ch;
+  line-height: 1.5;
+}
+
+.hero-illustration {
+  width: 100%;
+  flex-shrink: 0;
+  align-self: flex-end;
+}
+
+
+/* Desktop hero */
+@media (min-width: 768px) {
+  .hero {
+    padding-top: 1rem;
+  }
+
+  .hero-inner {
+    flex-direction: row;
+    align-items: flex-end;
+    justify-content: flex-start;
+    gap: 0;
+  }
+
+  .hero-text {
+    padding-bottom: 2.7rem; /* var(--sp-12) × 0.9 */
+    flex: 0 0 auto;
+    max-width: 432px;       /* 480px × 0.9 */
+  }
+
+  .hero-illustration {
+    flex: 1 1 auto;
+    max-width: 504px;       /* 560px × 0.9 */
+    margin-left: auto;
+  }
+
+  .hero-title {
+    font-size: 2.5rem;
+  }
+}
+
+@media (min-width: 1024px) {
+  .hero-title        { font-size: 2.75rem; }
+  .hero-text         { max-width: 468px; }
+  .hero-illustration { max-width: 612px; }
+}
+
+/* ============================================================
+   12. THIS WEEK SUMMARY CARD
+   ============================================================ */
+.section-summary {
+  padding-block: var(--sp-8) var(--sp-6);
+}
+
+.summary-card {
+  background-color: #ffffff;
+  border-radius: var(--r-md);
+  padding: var(--sp-6) var(--sp-6) var(--sp-2);
+  box-shadow: var(--shadow-card);
+}
+
+.summary-card .btn {
+  display: block;
+  width: fit-content;
+  margin-top: var(--sp-4);
+  margin-inline: auto;
+}
+
+.summary-card .label-accent {
+  margin-bottom: var(--sp-3);
+}
+
+.summary-date {
+  font-family: var(--font-heading);
+  font-size: 1.375rem;
+  font-weight: 600;
+  color: var(--color-primary);
+  margin-bottom: var(--sp-3);
+  /* h2 semantics, not default heading size */
+}
+.summary-time {
+  font-size: 0.9em;
+  font-weight: 400;
+}
+
+.summary-text {
+  font-size: 1rem;
+  color: var(--color-text);
+  margin-bottom: var(--sp-5);
+  max-width: 70ch;
+}
+
+@media (min-width: 768px) {
+  .summary-card {
+    padding: var(--sp-8) var(--sp-8) var(--sp-4);
+    display: grid;
+    grid-template-columns: 1fr auto;
+    grid-template-rows: auto auto auto;
+    column-gap: var(--sp-8);
+    align-items: center;
+  }
+
+  .summary-card .label-accent {
+    grid-column: 1;
+    justify-self: start;
+    align-self: end;
+  }
+
+  .summary-date {
+    grid-column: 1;
+  }
+
+  .summary-text {
+    grid-column: 1;
+    margin-bottom: 0;
+  }
+
+  .summary-card .btn {
+    grid-column: 2;
+    grid-row: 1 / -1;
+    align-self: center;
+    white-space: nowrap;
+  }
+}
+
+/* ============================================================
+   13. QUICK LINKS
+   ============================================================ */
+.quick-links {
+  padding-block: var(--sp-6) var(--sp-10);
+}
+
+.quick-links-heading {
+  font-family: var(--font-heading);
+  font-size: 1.375rem;
+  font-weight: 600;
+  color: var(--color-primary);
+  margin-bottom: var(--sp-5);
+}
+
+.quick-links-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: var(--sp-4);
+}
+
+/* ── Illustration tile ─────────────────────────────────────── */
+.quick-tile {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+  gap: var(--sp-2);
+}
+
+.quick-tile-img {
+  width: 150px;
+  height: 150px;
+  object-fit: contain;
+  display: block;
+  transition: transform var(--ease);
+}
+
+@media (max-width: 480px) {
+  .quick-links-grid {
+    grid-template-columns: 1fr;
+  }
+  .quick-tile-img {
+    width: 80px;
+    height: 80px;
+  }
+}
+
+.quick-tile:hover .quick-tile-img {
+  transform: translateY(-4px);
+}
+
+.quick-tile-label {
+  font-family: var(--font-heading);
+  font-size: 1.125rem;
+  font-weight: 600;
+  color: var(--color-primary);
+  margin: 0;
+}
+
+.quick-tile-desc {
+  font-size: 0.875rem;
+  color: rgba(51, 51, 51, 0.8);
+  margin: 0;
+  line-height: 1.4;
+}
+
+.quick-tile-btn {
+  margin-top: auto;
+}
+
+/* ============================================================
+   14. ANNOUNCEMENTS BANNER
+   ============================================================ */
+.announcements {
+  /*
+   * Background: --color-banner (#1E3A80 deep navy).
+   * #F5F0E8 on #1E3A80 achieves 9.2:1 — well above WCAG AA.
+   */
+  background-color: var(--color-banner);
+  padding-block: var(--sp-5);
+}
+
+.announcement-inner {
+  display: flex;
+  align-items: flex-start;
+  gap: var(--sp-3);
+}
+
+.announcement-icon {
+  font-size: 1.125rem;
+  flex-shrink: 0;
+  margin-top: 1px; /* optical alignment with text cap-height */
+}
+
+.announcement-text {
+  color: var(--color-text-on-dark);
+  font-size: 1rem;
+  line-height: 1.6;
+  margin-bottom: 0;
+}
+
+.announcement-link {
+  color: var(--color-text-on-dark);
+  text-decoration: underline;
+  text-underline-offset: 2px;
+  font-weight: 600;
+  transition: opacity var(--ease);
+}
+
+.announcement-link:hover {
+  opacity: 0.8;
+}
+
+/* ============================================================
+   15. FOOTER
+   ============================================================ */
+.past-classes-route {
+  padding-block: var(--sp-8);
+  text-align: center;
+  border-top: 1px solid var(--color-border);
+}
+
+.past-classes-route-link {
+  display: inline-block;
+  padding: 0.75rem 2rem;
+  font-size: 1rem;
+  font-weight: 600;
+  color: var(--color-text-on-dark);
+  background: var(--color-primary);
+  border-radius: 8px;
+  text-decoration: none;
+  transition: background var(--ease), transform var(--ease);
+}
+
+.past-classes-route-link:hover {
+  background: var(--color-banner);
+  transform: translateY(-1px);
+}
+
+.site-footer {
+  background-color: var(--color-primary);
+  color: var(--color-text-on-dark);
+  padding-block: var(--sp-3);
+  margin-top: var(--sp-12);
+}
+
+.footer-inner {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: var(--sp-1);
+  text-align: center;
+}
+
+@media (min-width: 768px) {
+  .footer-inner {
+    flex-direction: column;
+    justify-content: center;
+  }
+}
+
+.footer-nav {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: var(--sp-2) var(--sp-5);
+}
+
+.footer-nav a {
+  font-size: 0.9375rem;
+  color: var(--color-text-on-dark);
+  opacity: 0.82;
+  min-height: 44px;
+  display: inline-flex;
+  align-items: center;
+  padding-inline: var(--sp-1);
+  border-radius: var(--r-sm);
+  transition: opacity var(--ease);
+}
+
+.footer-nav a:hover {
+  opacity: 1;
+  text-decoration: underline;
+  text-underline-offset: 2px;
+}
+
+.footer-img {
+  display: block;
+  margin-inline: auto;
+  width: min(140px, 30%);
+  height: auto;
+  opacity: 0.85;
+}
+
+.footer-copy {
+  font-size: 0.8125rem;
+  opacity: 0.54;
+  margin-bottom: 0;
+}
+
+/* ============================================================
+   16. RESPONSIVE CONTAINER PADDING
+   ============================================================ */
+@media (min-width: 640px) {
+  :root { --container-pad: var(--sp-6); }
+}
+
+@media (min-width: 1024px) {
+  :root { --container-pad: var(--sp-8); }
+}
+
+/* ============================================================
+   17. PAGE-LEVEL SECTION SPACING RHYTHM
+   ============================================================ */
+main > section + section {
+  /* Keep vertical rhythm consistent across sections */
+}
+
+/* ── Divider between sections ── */
+.section-divider {
+  border: none;
+  border-top: 1px solid var(--color-border);
+  margin: 0 var(--container-pad);
+}
+
+/* ============================================================
+   18. PAGE INTRO HEADER (shared across inner pages)
+   ============================================================ */
+.page-intro {
+  background-color: var(--color-primary);
+  padding-block: var(--sp-10) var(--sp-8);
+  color: var(--color-text-on-dark);
+  position: relative;
+}
+
+.page-intro-inner {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: var(--sp-8);
+}
+
+.page-intro-text { flex: 1; }
+.page-intro-time { font-size: 1em; }
+
+.page-intro h1 {
+  font-family: var(--font-heading);
+  font-size: 2.25rem;
+  font-weight: 700;
+  color: var(--color-text-on-dark);
+  margin-bottom: var(--sp-2);
+}
+
+.page-intro p {
+  font-size: 1.0625rem;
+  opacity: 0.85;
+  margin-bottom: 0;
+}
+
+.page-intro-illus {
+  display: none; /* hidden on mobile */
+  position: absolute;
+  right: max(2rem, calc((100vw - 1200px) / 2 + 2rem));
+  top: 8px;
+  bottom: 8px;
+  width: auto;
+}
+
+.page-intro-illus .illus-card {
+  width: auto;
+  height: 100%;
+}
+
+.page-intro-illus .illus-card img {
+  width: auto;
+  height: 100%;
+  object-fit: contain;
+}
+
+@media (min-width: 600px) {
+  .page-intro-illus { display: flex; }
+}
+
+@media (min-width: 768px) {
+  .page-intro h1 { font-size: 2.75rem; }
+}
+
+/* ============================================================
+   19. WEEK NAVIGATION BAR (this-week.html)
+   ============================================================ */
+.week-nav {
+  background-color: var(--color-bg);
+  border-bottom: 1px solid var(--color-border);
+  padding-block: var(--sp-3);
+  position: sticky;
+  top: var(--nav-height);
+  z-index: 100;
+}
+
+.week-nav-inner {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: var(--sp-3);
+}
+
+/* Prev / Next buttons — v1: visual only, week switching is v2 */
+.week-nav-btn {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--sp-2);
+  padding: var(--sp-2) var(--sp-4);
+  font-family: var(--font-body);
+  font-size: 0.9375rem;
+  font-weight: 600;
+  color: var(--color-primary);
+  background: transparent;
+  border: 1.5px solid var(--color-border);
+  border-radius: var(--r-md);
+  cursor: pointer;
+  min-height: 44px;
+  min-width: 44px;
+  transition: background-color var(--ease), border-color var(--ease);
+  white-space: nowrap;
+}
+
+.week-nav-btn:hover {
+  background-color: var(--color-primary-muted);
+  border-color: var(--color-primary);
+}
+
+/* Arrow icons via CSS */
+.week-nav-btn-prev::before {
+  content: '←';
+  font-size: 1.1em;
+}
+
+.week-nav-btn-next::after {
+  content: '→';
+  font-size: 1.1em;
+}
+
+.week-nav-center {
+  text-align: center;
+  flex: 1;
+}
+
+.week-nav-date-label {
+  display: block;
+  font-family: var(--font-heading);
+  font-size: 1.0625rem;
+  font-weight: 600;
+  color: var(--color-text);
+  white-space: nowrap;
+}
+
+.week-type-badge {
+  display: inline-block;
+  background-color: var(--color-primary-muted);
+  color: var(--color-primary);
+  font-size: 0.75rem;
+  font-weight: 700;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  padding: 2px var(--sp-2);
+  border-radius: 99px;
+  margin-top: var(--sp-1);
+}
+
+/* Shrink text on very small screens */
+@media (max-width: 400px) {
+  .week-nav-btn { font-size: 0; } /* hide label, show arrow only */
+  .week-nav-btn-prev::before,
+  .week-nav-btn-next::after { font-size: 1.25rem; }
+}
+
+/* ============================================================
+   20. SELECTOR CARD (this-week.html)
+   ============================================================ */
+
+/*
+ * Background: #D5E2F5 (light blue, replaces spec's #D6E8E2 teal).
+ * #333333 on #D5E2F5 → ~9.4:1 ✓
+ * Saffron text on this bg still fails — use saffron as badge bg only.
+ */
+.selector-card {
+  background-color: #D5E2F5;
+  border-radius: var(--r-lg);
+  padding: var(--sp-6);
+  margin-block: var(--sp-6);
+}
+
+.selector-card .label-accent {
+  margin-bottom: var(--sp-5);
+  display: inline-block;
+}
+
+.selector-v1-note {
+  font-size: 0.8125rem;
+  color: rgba(51, 51, 51, 0.6);
+  font-style: italic;
+  margin-top: var(--sp-4);
+  margin-bottom: 0;
+  padding-top: var(--sp-4);
+  border-top: 1px solid rgba(46, 82, 163, 0.15);
+}
+
+.selector-grid {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: var(--sp-6);
+}
+
+@media (min-width: 600px) {
+  .selector-grid {
+    grid-template-columns: 1fr 1fr;
+    gap: var(--sp-8);
+  }
+}
+
+.selector-child-label {
+  font-family: var(--font-heading);
+  font-size: 1.0625rem;
+  font-weight: 600;
+  color: var(--color-primary);
+  margin-bottom: var(--sp-4);
+}
+
+.form-group {
+  display: flex;
+  flex-direction: column;
+  gap: var(--sp-1);
+  margin-bottom: var(--sp-3);
+}
+
+.form-group:last-of-type { margin-bottom: 0; }
+
+.form-label {
+  font-size: 0.875rem;
+  font-weight: 600;
+  color: var(--color-text);
+  letter-spacing: 0.01em;
+}
+
+.select-wrapper {
+  position: relative;
+}
+
+/* Custom chevron — replaces OS-default arrow */
+.select-wrapper::after {
+  content: '';
+  position: absolute;
+  right: 14px;
+  top: 50%;
+  transform: translateY(-50%);
+  width: 0;
+  height: 0;
+  border-left: 5px solid transparent;
+  border-right: 5px solid transparent;
+  border-top: 6px solid var(--color-primary);
+  pointer-events: none;
+}
+
+.field-select {
+  appearance: none;
+  -webkit-appearance: none;
+  width: 100%;
+  background-color: var(--color-card-bg);
+  border: 1.5px solid rgba(46, 82, 163, 0.28);
+  border-radius: var(--r-md);
+  padding: 0.625rem 2.5rem 0.625rem var(--sp-3);
+  font-family: var(--font-body);
+  font-size: 1rem;
+  color: var(--color-text);
+  cursor: pointer;
+  min-height: 44px;
+  transition: border-color var(--ease), box-shadow var(--ease);
+}
+
+.field-select:focus {
+  outline: none;
+  border-color: var(--color-primary);
+  box-shadow: 0 0 0 3px rgba(46, 82, 163, 0.18);
+}
+
+/* ============================================================
+   21. CHILD SECTION (this-week.html)
+   ============================================================ */
+
+/* ── Child color tokens ── */
+#child-1 {
+  --child-color:       #2E52A3;
+  --child-color-light: rgba(46, 82, 163, 0.08);
+}
+#child-2 {
+  --child-color:       #1E3A80;
+  --child-color-light: rgba(30, 58, 128, 0.08);
+}
+
+.child-section {
+  padding-block: var(--sp-6) var(--sp-8);
+}
+
+.child-section + .child-section {
+  border-top: 1px solid var(--color-border);
+  padding-top: var(--sp-8);
+}
+
+/* ── Child section header ── */
+.child-section-header {
+  display: flex;
+  align-items: center;
+  gap: var(--sp-3);
+  padding-bottom: var(--sp-3);
+  margin-bottom: var(--sp-4);
+}
+
+.child-section-icon {
+  color: var(--child-color);
+  display: flex;
+  align-items: center;
+  flex-shrink: 0;
+}
+
+.child-section-header-text {
+  display: flex;
+  flex-direction: row;
+  align-items: baseline;
+  gap: var(--sp-2);
+  min-width: 0;
+  flex-wrap: wrap;
+}
+
+.child-section-title {
+  font-family: var(--font-heading);
+  font-size: 1.375rem;
+  font-weight: 700;
+  color: var(--child-color);
+  margin: 0;
+}
+
+.child-section-sub {
+  font-size: 0.9rem;
+  color: rgba(51, 51, 51, 0.55);
+  font-style: italic;
+}
+
+.child-section-sub::before {
+  content: '— ';
+  font-style: normal;
+}
+
+/* Homework count badge */
+.child-hw-count {
+  margin-left: auto;
+  flex-shrink: 0;
+  font-size: 0.78rem;
+  font-weight: 600;
+  color: var(--child-color);
+  border: 1.5px solid var(--child-color);
+  border-radius: 999px;
+  padding: 0.2em 0.75em;
+  white-space: nowrap;
+}
+
+/* ── Child name badge — hidden, demarcation handled by section header ── */
+.class-card-child-badge { display: none; }
+
+/* ============================================================
+   22. CLASS CARDS (this-week.html)
+   ============================================================ */
+
+.child-cards {
+  display: flex;
+  flex-direction: column;
+  gap: var(--sp-4);
+}
+
+.class-card {
+  background: var(--color-card-bg);
+  border-radius: var(--r-lg);
+  box-shadow: var(--shadow-card);
+  border: 1px solid var(--color-border);
+  overflow: hidden;
+  display: flex;
+  flex-direction: column;
+}
+
+/* Left pane — subject info */
+.class-card-left {
+  padding: var(--sp-4) var(--sp-5);
+  display: flex;
+  flex-direction: column;
+  gap: var(--sp-2);
+  border-bottom: 1px solid var(--color-border);
+}
+
+@media (min-width: 600px) {
+  .class-card {
+    flex-direction: row;
+    min-height: 160px;
+  }
+
+  .class-card-left {
+    flex: 0 0 28%;
+    border-bottom: none;
+    border-right: none;
+    position: relative;
+  }
+
+  .class-card-left::after {
+    content: '';
+    position: absolute;
+    top: 14px;
+    bottom: 14px;
+    right: 0;
+    width: 1px;
+    background: var(--color-border);
+  }
+}
+
+/* Subject icon circle */
+.class-card-subject-icon {
+  width: 2.4rem;
+  height: 2.4rem;
+  border-radius: 50%;
+  background: var(--child-color-light);
+  color: var(--child-color);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-bottom: var(--sp-1);
+  flex-shrink: 0;
+}
+
+.class-card-track {
+  font-size: 0.68rem;
+  font-weight: 700;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: rgba(51, 51, 51, 0.5);
+  display: block;
+}
+
+.class-card-subject {
+  font-family: var(--font-heading);
+  font-size: 1.1rem;
+  font-weight: 700;
+  color: var(--color-primary);
+  margin-bottom: var(--sp-1);
+}
+
+.class-card-section-label {
+  font-size: 0.72rem;
+  font-weight: 700;
+  letter-spacing: 0.07em;
+  text-transform: uppercase;
+  color: var(--color-primary);
+  opacity: 0.7;
+  margin-top: var(--sp-2);
+  margin-bottom: var(--sp-1);
+}
+
+.class-card-section-content {
+  font-size: 0.9375rem;
+  color: var(--color-text);
+  line-height: 1.55;
+}
+
+.class-card-parent-notes {
+  font-size: 0.875rem;
+  color: rgba(51,51,51,0.6);
+  font-style: italic;
+  margin-top: var(--sp-2);
+}
+
+/* Right pane — homework info */
+.class-card-right {
+  padding: var(--sp-4) var(--sp-5);
+  display: flex;
+  flex-direction: column;
+  gap: var(--sp-2);
+  flex: 1;
+}
+
+.class-card-hw-header {
+  display: flex;
+  align-items: baseline;
+  gap: 0;
+  margin-bottom: var(--sp-1);
+}
+
+.class-card-hw-heading {
+  font-size: 0.72rem;
+  font-weight: 700;
+  letter-spacing: 0.07em;
+  text-transform: uppercase;
+  color: var(--color-primary);
+  opacity: 0.7;
+  margin-bottom: var(--sp-1);
+}
+
+/* Due date — inline with HOMEWORK heading */
+.class-card-due {
+  font-size: 0.72rem;
+  font-weight: 400;
+  color: #c0392b;
+  margin-top: 0;
+  white-space: nowrap;
+}
+
+.class-card-due::before {
+  content: ' · ';
+  color: rgba(51, 51, 51, 0.4);
+  font-weight: 400;
+}
+.class-card-due.due-date--overdue {
+  color: #c0392b;
+}
+
+/* No-homework notice */
+.class-card-no-hw {
+  font-size: 0.875rem;
+  color: rgba(51, 51, 51, 0.5);
+  font-style: italic;
+  margin-top: var(--sp-2);
+}
+
+/* Footer — submit button + badge */
+.class-card-footer {
+  display: flex;
+  align-items: center;
+  gap: var(--sp-3);
+  margin-top: auto;
+  padding-top: var(--sp-3);
+}
+
+/* Submit button uses child color */
+.btn-hw-submit {
+  background: var(--color-accent);
+  color: var(--color-text-on-accent);
+  border: 2px solid var(--color-accent);
+  border-radius: var(--r-md);
+  padding: 0.5rem 1.1rem;
+  font-size: 0.875rem;
+  font-weight: 600;
+  cursor: pointer;
+  white-space: nowrap;
+  text-decoration: none;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  transition: opacity var(--ease), transform var(--ease);
+}
+.btn-hw-submit:hover { opacity: 0.88; transform: translateY(-1px); }
+.btn-hw-submit.btn-submitted {
+  background: #4caf50;
+  border-color: #4caf50;
+  color: #fff;
+}
+
+/* Smaller button variant for cards */
+.btn-sm {
+  padding: 0.5rem 1.125rem;
+  font-size: 0.9375rem;
+  min-height: 44px;
+}
+
+/* Submission status badges */
+.badge {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--sp-1);
+  font-size: 0.8125rem;
+  font-weight: 600;
+  border-radius: 99px;
+  padding: 3px var(--sp-3);
+  line-height: 1.5;
+  white-space: nowrap;
+}
+
+/* Status badges */
+.badge-not-submitted {
+  font-size: 0.72rem;
+  font-weight: 700;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  color: rgba(51,51,51,0.45);
+  display: none; /* hidden when not submitted — submit button says it all */
+}
+
+.badge-submitted {
+  background-color: rgba(46, 82, 163, 0.1);
+  color: var(--color-primary);
+}
+
+.badge-submitted::before {
+  content: '✓';
+  font-size: 0.75rem;
+}
+
+.badge-overdue {
+  font-size: 0.72rem;
+  font-weight: 700;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  color: #c0392b;
+  border: 1.5px solid #c0392b;
+  border-radius: 999px;
+  padding: 0.2em 0.7em;
+}
+
+/* Overdue card state */
+.class-card--overdue {
+  border-left: 4px solid #c0392b;
+}
+
+/* ============================================================
+   23. ILLUSTRATION IMAGES
+   ============================================================ */
+
+/*
+ * All supplied illustrations have white backgrounds.
+ * On coloured sections (hero, page-intro) we wrap them in a white
+ * rounded card so they sit cleanly on the blue background.
+ * On the warm page bg (#F5F0E8) they display naturally.
+ */
+
+/* Wrapper used inside coloured hero/section backgrounds */
+.illus-card {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  overflow: hidden;
+}
+
+.illus-card img {
+  display: block;
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
+}
+
+/* Hero illustration — sits directly on blue background, no card */
+.hero-illustration img {
+  width: 100%;
+  height: auto;
+  display: block;
+}
+
+/* Page-level illustrations that sit directly on the warm page bg */
+.illus-natural {
+  display: block;
+  max-width: 100%;
+  height: auto;
+  border-radius: var(--r-lg);
+}
+
+/* ============================================================
+   24. BOTTOM WEEK NAV (this-week.html — repeated at page bottom)
+   ============================================================ */
+/* ── Today's Schedule strip ──────────────────────────────────────── */
+.schedule-strip {
+  background: #FDFBF7;
+  border: 1px solid #E8E0D0;
+  border-radius: 10px;
+  margin-bottom: var(--sp-6);
+  overflow: hidden;
+}
+
+.schedule-strip-summary {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  padding: 0.55rem 1rem;
+  font-size: 0.8125rem;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.06em;
+  color: var(--color-accent);
+  cursor: pointer;
+  list-style: none;
+  user-select: none;
+}
+.schedule-strip-summary::-webkit-details-marker { display: none; }
+
+.schedule-strip-icon { font-size: 1rem; }
+
+.schedule-strip-chevron {
+  margin-left: auto;
+  width: 0.5rem;
+  height: 0.5rem;
+  border-right: 2px solid var(--color-accent);
+  border-bottom: 2px solid var(--color-accent);
+  transform: rotate(45deg);
+  transition: transform 0.2s;
+}
+details.schedule-strip[open] .schedule-strip-chevron {
+  transform: rotate(-135deg);
+}
+
+.schedule-strip-body {
+  border-top: 1px solid #E8E0D0;
+}
+
+.schedule-table {
+  width: 100%;
+  border-collapse: collapse;
+  font-size: 0.9375rem;
+}
+
+.schedule-table thead th {
+  background: var(--color-primary);
+  padding: 0.65rem 1.25rem;
+  text-align: left;
+  font-size: 0.68rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.09em;
+  color: rgba(255,255,255,0.75);
+}
+
+.schedule-table td {
+  padding: 0.75rem 1.25rem;
+  border-bottom: 1px solid var(--color-border);
+  vertical-align: middle;
+  color: var(--color-text);
+}
+.schedule-table tr:last-child td { border-bottom: none; }
+
+.schedule-table .st-time {
+  white-space: nowrap;
+  width: 1%;       /* shrink-to-fit: column takes only as much as its content needs */
+}
+
+/* td time cells: zero out padding; inner div fills the full cell height
+   (including rowspan) and uses flexbox to centre content — the only
+   cross-browser-reliable way to centre text in a rowspan cell.         */
+.schedule-table td.st-time {
+  padding: 0;
+}
+
+.schedule-table td.st-time > .st-time-inner {
+  display: flex;
+  align-items: center;
+  /* height set by JS to match td.offsetHeight — enables flex centering
+     even on rowspan cells where height:100% doesn't resolve in CSS     */
+  padding: var(--sp-2) var(--sp-5);
+  font-weight: 700;
+  color: var(--color-primary);
+  font-size: 0.875rem;
+}
+
+/* Both dividers live on st-group so st-time never gets position:relative
+   (which breaks vertical-align on rowspan cells in some browsers).
+   ::before = left edge (Time | Group border)
+   ::after  = right edge (Group | Subject border)              */
+.schedule-table th.st-group,
+.schedule-table td.st-group {
+  position: relative;
+}
+
+.schedule-table th.st-group::before,
+.schedule-table td.st-group::before,
+.schedule-table th.st-group::after,
+.schedule-table td.st-group::after {
+  content: '';
+  position: absolute;
+  top: 14px;
+  bottom: 14px;
+  width: 1px;
+  background: var(--color-border);
+}
+
+.schedule-table th.st-group::before,
+.schedule-table td.st-group::before { left: 0; }
+
+.schedule-table th.st-group::after,
+.schedule-table td.st-group::after  { right: 0; }
+
+/* Header: white semi-transparent dividers, tighter inset */
+.schedule-table thead th.st-group::before,
+.schedule-table thead th.st-group::after {
+  background: rgba(255, 255, 255, 0.2);
+  top: 8px;
+  bottom: 8px;
+}
+
+/* All-students rows */
+.st-row--all td { background: rgba(46,82,163,0.03); }
+
+/* Break rows — muted */
+.st-row--break td {
+  color: rgba(51,51,51,0.5);
+  background: transparent;
+  font-size: 0.875rem;
+}
+
+/* Highlight rows — subtle blue tint */
+.st-row--highlight td {
+  background: rgba(46,82,163,0.06);
+  color: var(--color-primary);
+  font-weight: 500;
+}
+
+/* ── end schedule strip ────────────────────────────────────────────── */
+
+/* ── Schedule page tabs ─────────────────────────────────────────────── */
+.sched-tabs {
+  display: flex;
+  gap: 0.25rem;
+  border-bottom: 2px solid var(--color-border);
+  margin-bottom: var(--sp-6);
+}
+
+.sched-tab {
+  background: none;
+  border: none;
+  border-bottom: 3px solid transparent;
+  margin-bottom: -2px;
+  padding: 0.6rem 1.25rem;
+  font-size: 0.9375rem;
+  font-weight: 600;
+  color: rgba(51,51,51,0.5);
+  cursor: pointer;
+  border-radius: 6px 6px 0 0;
+  transition: color 0.15s, border-color 0.15s;
+}
+
+.sched-tab:hover { color: var(--color-primary); }
+
+.sched-tab--active {
+  color: var(--color-primary);
+  border-bottom-color: var(--color-accent);
+}
+
+/* Daily schedule panel wrapper */
+.daily-sched-card {
+  background: #ffffff;
+  border: 1px solid var(--color-border);
+  border-radius: var(--r-lg);
+  overflow: hidden;
+  margin-bottom: var(--sp-8);
+  box-shadow: var(--shadow-card);
+}
+
+/* Tighter table on narrow mobile so 3 columns fit without scrolling */
+@media (max-width: 599px) {
+  .schedule-table {
+    font-size: 0.8125rem;
+  }
+  .schedule-table thead th,
+  .schedule-table td {
+    padding-left: var(--sp-3);
+    padding-right: var(--sp-3);
+  }
+  /* Allow time to wrap to 2 lines — gives Subject column enough room */
+  .schedule-table .st-time {
+    white-space: normal;
+    width: 28%;
+  }
+  .schedule-table td.st-time > .st-time-inner {
+    font-size: 0.8125rem;
+    padding-left: var(--sp-3);
+    padding-right: var(--sp-2);
+    white-space: normal;
+  }
+}
+
+.daily-sched-note {
+  padding: 0.75rem 1.25rem;
+  font-size: 0.875rem;
+  color: rgba(51,51,51,0.55);
+  margin: 0;
+  border-bottom: 1px solid var(--color-border);
+  font-style: italic;
+}
+
+/* ── end schedule page tabs ─────────────────────────────────────────── */
+
+.week-nav-bottom {
+  background-color: transparent;
+  border-top: 1px solid var(--color-border);
+  border-bottom: none;
+  padding-block: var(--sp-6);
+  position: static;
+}
+
+@media (min-width: 768px) {
+  .week-nav-bottom { display: none; }
+  .week-nav {
+    border-bottom: 1px solid var(--color-border);
+    background: var(--color-bg);
+    padding-block: var(--sp-2);
+  }
+  .week-nav-inner {
+    max-width: 480px;
+    margin-inline: auto;
+  }
+}
+
+/* ============================================================
+   25. PAST CLASSES PAGE
+   ============================================================ */
+.filter-bar {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: flex-end;
+  gap: var(--sp-4);
+  padding-block: var(--sp-6);
+  border-bottom: 1px solid var(--color-border);
+  margin-bottom: var(--sp-6);
+}
+
+.filter-group {
+  display: flex;
+  flex-direction: column;
+  gap: var(--sp-1);
+  flex: 1 1 180px;
+}
+
+.filter-label {
+  font-size: 0.8125rem;
+  font-weight: 600;
+  color: var(--color-text);
+  letter-spacing: 0.01em;
+}
+
+.filter-v1-note {
+  width: 100%;
+  font-size: 0.8125rem;
+  font-style: italic;
+  color: rgba(51, 51, 51, 0.55);
+  margin-bottom: 0;
+  padding-top: var(--sp-2);
+}
+
+/* 2-col on desktop, 1-col mobile */
+.past-classes-grid {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: var(--sp-5);
+}
+
+@media (min-width: 640px) {
+  .past-classes-grid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+
+.past-card {
+  background-color: var(--color-card-bg);
+  border-radius: var(--r-lg);
+  border: 1px solid var(--color-border);
+  box-shadow: var(--shadow-card);
+  padding: var(--sp-5);
+  display: flex;
+  flex-direction: column;
+  gap: var(--sp-3);
+  transition: box-shadow var(--ease), transform var(--ease);
+}
+
+.past-card:hover {
+  box-shadow: var(--shadow-card-hover);
+  transform: translateY(-2px);
+}
+
+.past-card-meta {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: var(--sp-2);
+  flex-wrap: wrap;
+}
+
+.past-card-date {
+  font-size: 0.8125rem;
+  font-weight: 600;
+  color: rgba(51, 51, 51, 0.55);
+  letter-spacing: 0.02em;
+}
+
+.past-card-track {
+  display: inline-block;
+  font-size: 0.75rem;
+  font-weight: 700;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--color-primary);
+  background-color: var(--color-primary-muted);
+  border-radius: 99px;
+  padding: 2px var(--sp-2);
+}
+
+.past-card-topic {
+  font-family: var(--font-heading);
+  font-size: 1.0625rem;
+  font-weight: 600;
+  color: var(--color-text);
+  line-height: 1.3;
+  margin-bottom: 0;
+}
+
+.past-card-summary {
+  font-size: 0.9375rem;
+  color: rgba(51, 51, 51, 0.75);
+  line-height: 1.55;
+  margin-bottom: 0;
+}
+
+/* Homework indicator badges */
+.badge-hw-set {
+  background-color: rgba(193, 127, 36, 0.12);
+  color: #7A5010; /* darkened saffron for text — passes WCAG AA on white */
+  font-size: 0.75rem;
+  font-weight: 700;
+  border-radius: 99px;
+  padding: 3px var(--sp-2);
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+  white-space: nowrap;
+}
+
+.badge-hw-set::before { content: '📝'; font-size: 0.7rem; }
+
+.badge-hw-none {
+  background-color: rgba(51, 51, 51, 0.07);
+  color: rgba(51, 51, 51, 0.55);
+  font-size: 0.75rem;
+  font-weight: 600;
+  border-radius: 99px;
+  padding: 3px var(--sp-2);
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+  white-space: nowrap;
+}
+
+/* ============================================================
+   26. EXAMS PAGE
+   ============================================================ */
+.exam-dates-grid {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: var(--sp-5);
+  margin-block: var(--sp-6);
+}
+
+@media (min-width: 540px) {
+  .exam-dates-grid { grid-template-columns: repeat(2, 1fr); }
+}
+
+.exam-date-card {
+  background-color: var(--color-primary);
+  border-radius: var(--r-lg);
+  padding: var(--sp-5) var(--sp-5);
+  display: flex;
+  flex-direction: column;
+  gap: var(--sp-1);
+}
+
+.exam-date-card--final {
+  background-color: #1E3A80;
+}
+
+.exam-type-label {
+  font-size: 0.6875rem;
+  font-weight: 700;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: var(--color-accent);
+  margin-bottom: 0;
+}
+
+.exam-date-large {
+  font-family: var(--font-heading);
+  font-size: 1.25rem;
+  font-weight: 700;
+  color: var(--color-text-on-dark);
+  line-height: 1.2;
+  margin-bottom: 0;
+}
+
+.exam-date-sub {
+  font-size: 0.875rem;
+  color: var(--color-text-on-dark);
+  opacity: 0.75;
+  margin-bottom: 0;
+}
+
+/* Syllabus phase banner */
+.syllabus-phase-banner {
+  display: flex;
+  align-items: center;
+  gap: var(--sp-3);
+  background: #f0f4fb;
+  border: 1px solid #c8d8f0;
+  border-radius: 0.6rem;
+  padding: 0.7rem 1.1rem;
+  margin-block: var(--sp-5) var(--sp-2);
+  font-size: 0.9rem;
+  color: #444;
+}
+
+.syllabus-phase-pill {
+  display: inline-block;
+  font-size: 0.72rem;
+  font-weight: 700;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  padding: 0.2em 0.7em;
+  border-radius: 999px;
+  background: var(--color-primary);
+  color: #fff;
+  white-space: nowrap;
+  flex-shrink: 0;
+}
+
+.syllabus-phase-pill--midterm {
+  background: #2e7d9e; /* teal-ish for midterm */
+}
+
+.syllabus-phase-pill--final {
+  background: #c0392b; /* warm red for final */
+}
+
+.syllabus-phase-msg {
+  line-height: 1.4;
+}
+
+/* Syllabus section */
+.syllabus-section {
+  padding-block: var(--sp-6) var(--sp-10);
+}
+
+.syllabus-section-heading {
+  font-family: var(--font-heading);
+  font-size: 1.5rem;
+  font-weight: 700;
+  color: var(--color-primary);
+  margin-bottom: var(--sp-5);
+}
+
+.syllabus-grid {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: var(--sp-5);
+}
+
+@media (min-width: 640px) {
+  .syllabus-grid { grid-template-columns: repeat(2, 1fr); }
+}
+
+.syllabus-card {
+  background-color: var(--color-card-bg);
+  border-radius: var(--r-lg);
+  border: 1px solid var(--color-border);
+  box-shadow: var(--shadow-card);
+  overflow: hidden;
+}
+
+.syllabus-card-header {
+  padding: var(--sp-4) var(--sp-5);
+  border-bottom: 1px solid var(--color-border);
+  background-color: rgba(46, 82, 163, 0.06); /* Jainism — blue tint */
+}
+
+/* Subject-coloured header variants */
+.syllabus-card-header--hindi    { background-color: rgba(255, 208, 57, 0.12); }  /* yellow tint */
+.syllabus-card-header--yoga     { background-color: rgba(91, 33, 182, 0.06);  }  /* purple tint */
+.syllabus-card-header--prayers  { background-color: rgba(26, 92, 48, 0.06);   }  /* green tint  */
+
+.syllabus-card-title {
+  font-family: var(--font-heading);
+  font-size: 1.125rem;
+  font-weight: 700;
+  color: var(--color-primary);
+  margin-bottom: 0;
+}
+
+.syllabus-card-body {
+  padding: var(--sp-5);
+  display: flex;
+  flex-direction: column;
+  gap: var(--sp-4);
+}
+
+.syllabus-block-label {
+  font-size: 0.75rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  color: rgba(51, 51, 51, 0.5);
+  margin-bottom: var(--sp-2);
+}
+
+.syllabus-block-text {
+  font-size: 0.9375rem;
+  color: var(--color-text);
+  line-height: 1.6;
+  margin-bottom: 0;
+}
+
+.syllabus-card-footer {
+  padding: var(--sp-4) var(--sp-5);
+  border-top: 1px solid var(--color-border);
+  background-color: rgba(245, 240, 232, 0.5);
+}
+
+/* Prep tips */
+.prep-section {
+  padding-block: var(--sp-2) var(--sp-10);
+}
+
+.prep-section-heading {
+  font-family: var(--font-heading);
+  font-size: 1.5rem;
+  font-weight: 700;
+  color: var(--color-primary);
+  margin-bottom: var(--sp-5);
+}
+
+.prep-tips-list {
+  display: flex;
+  flex-direction: column;
+  gap: var(--sp-4);
+  list-style: none;
+  max-width: 680px;
+}
+
+.prep-tips-list li {
+  display: flex;
+  gap: var(--sp-4);
+  align-items: flex-start;
+  padding: var(--sp-5);
+  background-color: var(--color-card-bg);
+  border-radius: var(--r-lg);
+  border: 1px solid var(--color-border);
+  box-shadow: var(--shadow-card);
+}
+
+.prep-tip-number {
+  flex-shrink: 0;
+  width: 32px;
+  height: 32px;
+  background-color: var(--color-primary);
+  color: var(--color-text-on-dark);
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 0.875rem;
+  font-weight: 700;
+  font-family: var(--font-heading);
+  margin-top: 1px;
+}
+
+.prep-tip-text {
+  font-size: 1rem;
+  color: var(--color-text);
+  line-height: 1.6;
+  margin-bottom: 0;
+}
+
+/* ============================================================
+   27. FULL SYLLABUS MODAL
+   ============================================================ */
+
+.syllabus-modal-overlay {
+  display: none; /* JS sets display:flex to open */
+  position: fixed;
+  inset: 0;
+  background: rgba(0, 0, 0, 0.5);
+  z-index: 900;
+  align-items: center;
+  justify-content: center;
+  padding: var(--sp-4);
+}
+
+.syllabus-modal-box {
+  background: #ffffff;
+  border-radius: 1rem;
+  box-shadow: 0 8px 40px rgba(0, 0, 0, 0.22);
+  width: 100%;
+  max-width: 560px;
+  max-height: 85vh;
+  display: flex;
+  flex-direction: column;
+}
+
+.syllabus-modal-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: var(--sp-5) var(--sp-6);
+  border-bottom: 1px solid var(--color-border);
+  flex-shrink: 0;
+}
+
+.syllabus-modal-title {
+  font-family: var(--font-heading);
+  font-size: 1.15rem;
+  font-weight: 700;
+  color: var(--color-primary);
+  margin: 0;
+}
+
+.syllabus-modal-close {
+  background: none;
+  border: none;
+  font-size: 1.1rem;
+  line-height: 1;
+  color: #666;
+  cursor: pointer;
+  padding: 0.3rem 0.5rem;
+  border-radius: 0.4rem;
+  transition: background 0.15s;
+}
+
+.syllabus-modal-close:hover {
+  background: rgba(0, 0, 0, 0.07);
+  color: #333;
+}
+
+.syllabus-modal-body {
+  padding: var(--sp-6);
+  overflow-y: auto;
+  -webkit-overflow-scrolling: touch;
+}
+
+.syllabus-modal-body .syllabus-block-label {
+  display: none; /* hide the "Final syllabus" sub-label — title already says it */
+}
+
+.syllabus-modal-body .syllabus-block-text {
+  font-size: 1rem;
+  line-height: 1.7;
+  color: var(--color-text);
+}
+
+/* ============================================================
+   28. ABOUT PAGE
+   ============================================================ */
+.about-hero-illus {
+  margin-bottom: var(--sp-8);
+  max-width: 360px;
+}
+
+.about-hero-illus img {
+  width: 100%;
+  height: auto;
+  border-radius: var(--r-xl);
+  box-shadow: var(--shadow-card);
+}
+
+.about-section {
+  padding-block: var(--sp-6) var(--sp-8);
+  border-bottom: 1px solid var(--color-border);
+}
+
+.about-section:last-of-type { border-bottom: none; }
+
+.about-section-heading {
+  font-family: var(--font-heading);
+  font-size: 1.5rem;
+  font-weight: 700;
+  color: var(--color-primary);
+  margin-bottom: var(--sp-5);
+}
+
+/* Teacher cards */
+.teacher-grid {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: var(--sp-4);
+}
+
+@media (min-width: 540px) {
+  .teacher-grid { grid-template-columns: repeat(3, 1fr); }
+}
+
+.teacher-card {
+  background-color: var(--color-card-bg);
+  border-radius: var(--r-lg);
+  border: 1px solid var(--color-border);
+  border-top: 4px solid var(--color-primary-vivid);
+  box-shadow: var(--shadow-card);
+  padding: var(--sp-5);
+  display: flex;
+  flex-direction: column;
+  gap: var(--sp-2);
+}
+
+.teacher-name {
+  font-family: var(--font-heading);
+  font-size: 1.0625rem;
+  font-weight: 700;
+  color: var(--color-primary);
+  margin-bottom: 0;
+}
+
+.teacher-subject {
+  font-size: 0.875rem;
+  font-weight: 600;
+  color: rgba(51, 51, 51, 0.6);
+  margin-bottom: 0;
+}
+
+.teacher-email {
+  font-size: 0.875rem;
+  color: var(--color-primary);
+  text-decoration: underline;
+  text-underline-offset: 2px;
+  word-break: break-all;
+}
+
+.teacher-email:hover { opacity: 0.75; }
+
+/* Schedule table */
+.schedule-table {
+  width: 100%;
+  border-collapse: collapse;
+  font-size: 0.9375rem;
+  background-color: var(--color-card-bg);
+  border-radius: var(--r-lg);
+  overflow: hidden;
+  box-shadow: var(--shadow-card);
+  border: 1px solid var(--color-border);
+}
+
+.schedule-table th {
+  background-color: var(--color-primary);
+  color: var(--color-text-on-dark);
+  font-family: var(--font-heading);
+  font-size: 0.875rem;
+  font-weight: 600;
+  text-align: left;
+  padding: var(--sp-3) var(--sp-5);
+  letter-spacing: 0.02em;
+}
+
+.schedule-table td {
+  padding: var(--sp-3) var(--sp-5);
+  color: var(--color-text);
+  border-bottom: 1px solid var(--color-border);
+  vertical-align: middle;
+  line-height: 1.5;
+}
+
+.schedule-table tr:last-child td { border-bottom: none; }
+
+.schedule-table tr:nth-child(even) td {
+  background-color: rgba(46, 82, 163, 0.03);
+}
+
+.schedule-time {
+  font-weight: 600;
+  white-space: nowrap;
+  color: var(--color-primary);
+}
+
+/* Location box */
+.location-box {
+  background-color: var(--color-card-bg);
+  border-radius: var(--r-lg);
+  border: 1px solid var(--color-border);
+  box-shadow: var(--shadow-card);
+  padding: var(--sp-6);
+  max-width: 560px;
+}
+
+.location-box p { margin-bottom: var(--sp-2); }
+.location-box p:last-child { margin-bottom: 0; }
+
+.location-address {
+  font-family: var(--font-heading);
+  font-size: 1.0625rem;
+  font-weight: 600;
+  color: var(--color-primary);
+}
+
+.location-note {
+  font-size: 0.9375rem;
+  color: rgba(51, 51, 51, 0.7);
+}
+
+/* ============================================================
+   CHILD TAB BAR — mobile bottom nav  (child-nav.js)
+   ============================================================ */
+
+/* Mobile: hide inactive child section */
+.child-section[data-tab-hidden="true"] {
+  display: none;
+}
+
+/* Desktop: show all sections */
+@media (min-width: 768px) {
+  .child-section[data-tab-hidden="true"] {
+    display: block;
+  }
+}
+
+/* Fixed bottom tab bar (mobile only) */
+#child-tab-bar {
+  position: fixed;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  display: flex;
+  z-index: 800;
+  background: var(--color-primary);
+  box-shadow: 0 -2px 12px rgba(0,0,0,0.18);
+}
+
+@media (min-width: 768px) {
+  #child-tab-bar { display: none; }
+}
+
+.child-tab {
+  flex: 1;
+  padding: 0.85rem var(--sp-4);
+  background: none;
+  border: none;
+  border-top: 3px solid transparent;
+  color: rgba(245, 240, 232, 0.65);
+  font-family: var(--font-body);
+  font-size: 0.9375rem;
+  font-weight: 600;
+  cursor: pointer;
+  transition: color var(--ease), background var(--ease), border-color var(--ease);
+}
+
+.child-tab--active {
+  color: var(--color-text-on-accent);
+  background: var(--color-accent);
+  border-top-color: var(--color-accent);
+}
+
+/* Add padding so content isn't hidden behind fixed bar on mobile */
+@media (max-width: 767px) {
+  body:has(#child-tab-bar) main {
+    padding-bottom: 56px;
+  }
+}
+
+
+/* ============================================================
+   AUTH MODAL  (auth-modal.js)
+   ============================================================ */
+
+/* Prevent scroll when modal open */
+body.auth-open { overflow: hidden; }
+
+/* Nav sign-in button */
+.auth-nav-btn {
+  font-family: var(--font-body);
+  font-size: 0.875rem;
+  font-weight: 600;
+  color: var(--color-text-on-accent);
+  background: var(--color-accent);
+  border: none;
+  border-radius: 6px;
+  padding: 7px 16px;
+  cursor: pointer;
+  white-space: nowrap;
+  margin-left: auto;
+  flex-shrink: 0;
+  order: 10;
+  transition: opacity 0.15s;
+}
+.auth-nav-btn:hover { opacity: 0.88; }
+
+/* Overlay */
+.auth-overlay {
+  position: fixed;
+  inset: 0;
+  background: rgba(15, 23, 60, 0.55);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 900;
+  padding: 20px 16px;
+  box-sizing: border-box;
+}
+
+/* Card */
+.auth-card {
+  position: relative;
+  background: #fff;
+  border-radius: 18px;
+  box-shadow: 0 8px 40px rgba(15,23,60,0.18);
+  padding: 40px 36px 36px;
+  width: 100%;
+  max-width: 420px;
+  max-height: calc(100vh - 40px);
+  overflow-y: auto;
+  box-sizing: border-box;
+}
+
+/* Close button */
+.auth-close {
+  position: absolute;
+  top: 16px;
+  right: 16px;
+  background: none;
+  border: none;
+  font-size: 1rem;
+  color: #6b7280;
+  cursor: pointer;
+  line-height: 1;
+  padding: 4px 6px;
+  border-radius: 4px;
+}
+.auth-close:hover { color: var(--color-text); background: #f3f4f6; }
+
+/* Heading */
+.auth-heading {
+  font-family: var(--font-heading);
+  font-size: 1.5rem;
+  font-weight: 700;
+  color: var(--color-primary);
+  margin: 0 0 24px;
+  line-height: 1.25;
+}
+
+/* Sub text */
+.auth-sub {
+  font-size: 0.9rem;
+  color: var(--color-text-muted);
+  margin: -16px 0 20px;
+}
+
+/* Email chip */
+.auth-email-chip {
+  display: inline-flex;
+  align-items: center;
+  gap: 7px;
+  font-size: 0.875rem;
+  color: var(--color-text);
+  background: #f3f4f6;
+  border-radius: 20px;
+  padding: 5px 12px;
+  margin-bottom: 20px;
+}
+
+/* Field */
+.auth-field {
+  display: flex;
+  flex-direction: column;
+  margin-bottom: 16px;
+}
+.auth-label {
+  font-size: 0.8125rem;
+  font-weight: 600;
+  color: var(--color-text);
+  margin-bottom: 6px;
+}
+.auth-label-row {
+  display: flex;
+  justify-content: space-between;
+  align-items: baseline;
+  margin-bottom: 6px;
+}
+.auth-input,
+.auth-select {
+  font-family: var(--font-body);
+  font-size: 0.9375rem;
+  color: var(--color-text);
+  background: #fff;
+  border: 1.5px solid #d1d5db;
+  border-radius: 8px;
+  padding: 10px 12px;
+  width: 100%;
+  box-sizing: border-box;
+  transition: border-color 0.15s;
+  appearance: none;
+  -webkit-appearance: none;
+}
+.auth-input:focus,
+.auth-select:focus {
+  outline: none;
+  border-color: var(--color-primary);
+  box-shadow: 0 0 0 3px rgba(30,43,94,0.1);
+}
+.auth-input--err { border-color: #dc2626; }
+
+/* Password eye */
+.auth-pw-wrap { position: relative; }
+.auth-pw-wrap .auth-input { padding-right: 44px; }
+.auth-pw-eye {
+  position: absolute;
+  right: 10px;
+  top: 50%;
+  transform: translateY(-50%);
+  background: none;
+  border: none;
+  cursor: pointer;
+  color: #6b7280;
+  padding: 4px;
+  display: flex;
+}
+.auth-pw-eye:hover { color: var(--color-text); }
+
+/* Two-col row */
+.auth-row {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 12px;
+}
+
+/* Buttons */
+.auth-btn {
+  display: block;
+  width: 100%;
+  font-family: var(--font-body);
+  font-size: 0.9375rem;
+  font-weight: 600;
+  border: none;
+  border-radius: 8px;
+  padding: 12px 16px;
+  cursor: pointer;
+  margin-top: 8px;
+  transition: opacity 0.15s, background 0.15s;
+  box-sizing: border-box;
+}
+.auth-btn--primary {
+  background: var(--color-primary);
+  color: #fff;
+}
+.auth-btn--primary:hover { opacity: 0.88; }
+.auth-btn--accent {
+  background: var(--color-accent);
+  color: var(--color-text-on-accent);
+}
+.auth-btn--accent:hover { opacity: 0.88; }
+.auth-btn--ghost {
+  background: #f3f4f6;
+  color: var(--color-text);
+}
+.auth-btn--ghost:hover { background: #e5e7eb; }
+.auth-btn--danger {
+  background: #fef2f2;
+  color: #dc2626;
+  margin-top: 8px;
+}
+.auth-btn--danger:hover { background: #fee2e2; }
+
+/* Divider */
+.auth-divider {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  margin: 16px 0;
+  color: #9ca3af;
+  font-size: 0.8125rem;
+}
+.auth-divider::before,
+.auth-divider::after { content: ''; flex: 1; height: 1px; background: #e5e7eb; }
+
+/* Links / back */
+.auth-link {
+  background: none;
+  border: none;
+  font-family: var(--font-body);
+  font-size: 0.875rem;
+  color: var(--color-accent);
+  cursor: pointer;
+  padding: 0;
+}
+.auth-link:hover { text-decoration: underline; }
+.auth-back {
+  display: block;
+  margin: 14px auto 0;
+  text-align: center;
+  color: var(--color-text-muted);
+}
+.auth-back:hover { color: var(--color-text); }
+
+/* Add child button */
+.auth-add-child {
+  background: none;
+  border: none;
+  font-family: var(--font-body);
+  font-size: 0.875rem;
+  font-weight: 600;
+  color: var(--color-accent);
+  cursor: pointer;
+  padding: 4px 0 12px;
+  display: block;
+}
+.auth-add-child:hover { text-decoration: underline; }
+
+/* Child divider */
+.am-divider {
+  border: none;
+  border-top: 1px solid #e5e7eb;
+  margin: 12px 0 16px;
+}
+
+/* Error */
+.auth-error {
+  font-size: 0.8125rem;
+  color: #dc2626;
+  margin: 4px 0 0;
+}
+
+/* ============================================================
+   EXAM DAY BANNER  (sol-yoga.js)
+   ============================================================ */
+
+.exam-banner {
+  text-align: center;
+  padding: var(--sp-16) var(--sp-6);
+  background: var(--color-card-bg);
+  border-radius: var(--r-lg);
+  border: 1px solid var(--color-border);
+  margin: var(--sp-8) 0;
+}
+
+.exam-banner-heading {
+  font-family: var(--font-heading);
+  font-size: 1.75rem;
+  color: var(--color-banner);
+  margin: 0 0 var(--sp-3);
+}
+
+.exam-banner-body {
+  color: rgba(51,51,51,0.7);
+  font-size: 1rem;
+  margin: 0;
+}
+
+.week-type-badge--exam {
+  background-color: var(--color-banner);
+  color: var(--color-text-on-dark);
+}
+
+/* ============================================================
+   SCHEDULE PAGE — YEAR CALENDAR  (schedule.js)
+   ============================================================ */
+
+.schedule-loading {
+  color: rgba(51,51,51,0.5);
+  font-style: italic;
+  padding: var(--sp-8) 0;
+}
+
+/* Legend row */
+.schedule-legend {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--sp-2);
+  padding: var(--sp-4) 0 var(--sp-6);
+  border-bottom: 1px solid var(--color-border);
+  margin-bottom: var(--sp-6);
+}
+
+/* Subject tags — shared base */
+.sched-tag {
+  display: inline-flex;
+  align-items: center;
+  padding: 0.2rem 0.65rem;
+  border-radius: 99px;
+  font-size: 0.75rem;
+  font-weight: 600;
+  letter-spacing: 0.02em;
+  line-height: 1.6;
+}
+.sched-tag--jainism { background: #D5E2F5; color: #1E3A80; }
+.sched-tag--hindi   { background: #FFF3CD; color: #7A5200; }
+.sched-tag--sol     { background: #D4EDDA; color: #1A5C30; }
+.sched-tag--yoga    { background: #F3E8FF; color: #5B21B6; }
+.sched-tag--exam    { background: #fee2e2; color: #991b1b; font-weight: 700; }
+
+/* Month groups */
+.sched-month { margin-bottom: var(--sp-8); }
+.sched-month-heading {
+  font-family: var(--font-heading);
+  font-size: 1rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  color: rgba(51,51,51,0.65);
+  margin: 0 0 var(--sp-3);
+}
+
+/* Row list */
+.sched-list {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: flex;
+  flex-direction: column;
+  gap: var(--sp-2);
+}
+
+.sched-row {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: var(--sp-2) var(--sp-4);
+  padding: var(--sp-3) var(--sp-4);
+  border-radius: 10px;
+  background: #fff;
+  border: 1px solid var(--color-border);
+  transition: box-shadow var(--ease);
+}
+.sched-row:hover { box-shadow: 0 2px 8px rgba(46,82,163,0.10); }
+.sched-row--past { background: #fafafa; }
+.sched-row--current {
+  border-color: var(--color-primary);
+  box-shadow: 0 0 0 2px rgba(46,82,163,0.15);
+}
+
+.sched-this-week-badge {
+  order: -1;
+  display: inline-block;
+  padding: 0.15rem 0.6rem;
+  font-size: 0.7rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  background: var(--color-accent);
+  color: var(--color-banner);
+  border-radius: 99px;
+  flex-basis: 100%;
+}
+
+.sched-date {
+  font-weight: 600;
+  color: var(--color-text);
+  text-decoration: none;
+  font-size: 0.9375rem;
+  flex: 1 1 200px;
+}
+.sched-date:hover { color: var(--color-primary); text-decoration: underline; }
+
+.sched-tags {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--sp-1);
+}
