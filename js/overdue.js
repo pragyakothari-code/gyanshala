@@ -132,7 +132,7 @@
       var chip = document.createElement(u.href ? 'a' : 'span');
       if (u.href) chip.href = u.href;
       chip.className = 'summary-chip ' + (u.cls || 'summary-chip--upcoming');
-      chip.textContent = (u.cls === 'summary-chip--fall' ? '🍂 ' : '📅 ') + u.text;
+      chip.textContent = (u.cls === 'summary-chip--fall' ? '' : '📅 ') + u.text;
       chipsEl.appendChild(chip);
     });
   }
