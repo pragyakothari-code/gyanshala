@@ -660,8 +660,9 @@ h1, h2, h3, h4, h5, h6 {
 }
 
 .summary-chip--fall {
-  background: rgba(255, 208, 57, 0.18);
-  color: #7A5200;
+  background: #FFD039;
+  color: #1E3A80;
+  font-weight: 700;
 }
 
 @media (min-width: 768px) {
