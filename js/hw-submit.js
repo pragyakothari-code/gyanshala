@@ -45,13 +45,14 @@
     var badge = card.querySelector('.badge-not-submitted, .badge-submitted');
 
     if (btn) {
-      btn.textContent = 'Submit Homework';
-      btn.classList.remove('btn-submitted');
-      btn.style.pointerEvents = '';
+      btn.textContent = 'Submitted ✓';
+      btn.classList.add('btn-submitted');
+      btn.style.pointerEvents = 'none';
     }
     if (badge) {
-      badge.textContent = 'Submitted ✓';
-      badge.className = 'badge badge-submitted';
+      badge.textContent = 'Resubmit';
+      badge.className = 'badge badge-not-submitted';
+      badge.style.cursor = 'pointer';
     }
   }
 
@@ -236,12 +237,21 @@
     restoreSubmittedStates();
 
     document.addEventListener('click', function (e) {
+      /* Submit button (when not already submitted) */
       var btn = e.target.closest('.btn-hw-submit');
-      if (!btn) return;
-      e.preventDefault();
-      if (btn.classList.contains('btn-submitted')) return;
-      var card = btn.closest('.class-card');
-      if (card) showSubmitModal(card);
+      if (btn && !btn.classList.contains('btn-submitted')) {
+        e.preventDefault();
+        var card = btn.closest('.class-card');
+        if (card) showSubmitModal(card);
+        return;
+      }
+      /* Resubmit pill */
+      var badge = e.target.closest('.badge-not-submitted');
+      if (badge && badge.textContent.trim() === 'Resubmit') {
+        e.preventDefault();
+        var card2 = badge.closest('.class-card');
+        if (card2) showSubmitModal(card2);
+      }
     });
   }
 
