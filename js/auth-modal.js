@@ -362,9 +362,10 @@
   /* ── Step 4: all set ─────────────────────────────────────────── */
   function showAllSetModal(firstName) {
     var card = openModal(
+      '<img src="images/walking-to-gyanshala.png" alt="" aria-hidden="true" style="width:140px;height:auto;margin:0 auto 12px;display:block;">' +
       '<h2 class="am-heading">You\'re all set' + (firstName ? ', ' + esc(firstName) + '!' : '!') + '</h2>' +
       '<p class="am-sub">Welcome to JVBNA Gyanshala!</p>' +
-      '<button class="am-btn-accent" id="am-home" type="button" style="margin-top:32px">Go to Home</button>'
+      '<button class="am-btn-accent" id="am-home" type="button" style="margin-top:20px">Go to Home</button>'
     );
     card.querySelector('#am-home').onclick = function () {
       closeModal(); refreshNavBtn();
