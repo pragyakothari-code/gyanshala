@@ -4,6 +4,21 @@
   var SESSION_KEY = 'gyanshala_session';
   var PROFILE_KEY = 'gyanshala_profile';
   var childCounter = 0;
+  var _savedScrollY = 0;
+
+  /* ── Scroll lock / unlock (iOS-safe) ─────────────────────────── */
+  function lockScroll() {
+    _savedScrollY = window.pageYOffset || 0;
+    document.body.style.top = '-' + _savedScrollY + 'px';
+    document.body.classList.add('modal-open');
+  }
+
+  function unlockScroll() {
+    document.body.classList.remove('modal-open');
+    document.body.style.top = '';
+    window.scrollTo(0, _savedScrollY);
+    _savedScrollY = 0;
+  }
 
   /* ── Storage ─────────────────────────────────────────────────── */
   function getSession() { try { return JSON.parse(localStorage.getItem(SESSION_KEY)); } catch (_) { return null; } }
@@ -104,7 +119,7 @@
     card.innerHTML = innerHTML;
     overlay.appendChild(card);
     document.body.appendChild(overlay);
-    document.body.classList.add('modal-open');
+    lockScroll();
 
     /* Style elements inside card */
     styleCard(card);
@@ -116,7 +131,7 @@
   function closeModal() {
     var el = document.getElementById('auth-overlay');
     if (el) el.remove();
-    document.body.classList.remove('modal-open');
+    unlockScroll();
   }
 
   /* Apply inline styles to all dynamic card elements */
