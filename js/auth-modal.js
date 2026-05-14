@@ -331,7 +331,7 @@
       if (!children.length) { errEl.textContent = 'Please enter at least one child\'s name.'; errEl.style.display = 'block'; if (firstErr) firstErr.focus(); return; }
       errEl.style.display = 'none';
       localStorage.setItem(PROFILE_KEY, JSON.stringify({ children: children }));
-      showAllSetModal(children[0].name);
+      showAllSetModal(children);
     };
   }
 
@@ -360,10 +360,17 @@
   }
 
   /* ── Step 4: all set ─────────────────────────────────────────── */
-  function showAllSetModal(firstName) {
+  function showAllSetModal(children) {
+    /* Build "Ayan & Arya" or "Ayan" or just empty */
+    var names = '';
+    if (children && children.length) {
+      var nameList = children.map(function (c) { return esc(c.name || ''); }).filter(Boolean);
+      if (nameList.length === 2) names = nameList[0] + ' &amp; ' + nameList[1];
+      else if (nameList.length === 1) names = nameList[0];
+    }
     var card = openModal(
       '<img src="images/walking-to-gyanshala.png" alt="" aria-hidden="true" style="width:140px;height:auto;margin:0 auto 12px;display:block;">' +
-      '<h2 class="am-heading">You\'re all set' + (firstName ? ', ' + esc(firstName) + '!' : '!') + '</h2>' +
+      '<h2 class="am-heading">You\'re all set' + (names ? ', ' + names + '!' : '!') + '</h2>' +
       '<p class="am-sub">Welcome to JVBNA Gyanshala!</p>' +
       '<button class="am-btn-accent" id="am-home" type="button" style="margin-top:20px">Go to Home</button>'
     );
