@@ -626,7 +626,7 @@ h1, h2, h3, h4, h5, h6 {
    13. QUICK LINKS
    ============================================================ */
 .quick-links {
-  padding-block: var(--sp-3) var(--sp-4);
+  padding-block: var(--sp-3) 0;
 }
 
 .quick-links::before {
@@ -863,11 +863,11 @@ h1, h2, h3, h4, h5, h6 {
    16. RESPONSIVE CONTAINER PADDING
    ============================================================ */
 @media (min-width: 640px) {
-  :root { --container-pad: var(--sp-6); }
+  :root { --container-pad: var(--sp-8); }
 }
 
 @media (min-width: 1024px) {
-  :root { --container-pad: var(--sp-8); }
+  :root { --container-pad: var(--sp-12); }
 }
 
 /* ============================================================
@@ -2013,6 +2013,87 @@ details.schedule-strip[open] .schedule-strip-chevron {
   .syllabus-grid { grid-template-columns: repeat(2, 1fr); }
 }
 
+/* ── Track list (cardless layout) ───────────────────────────── */
+.track-list {
+  display: flex;
+  flex-direction: column;
+}
+
+.track-row {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: var(--sp-8);
+  padding: var(--sp-6) 0;
+}
+
+.track-row + .track-row {
+  border-top: 1px solid var(--color-border);
+}
+
+.track-card {
+  background: none !important;
+  border: none !important;
+  box-shadow: none !important;
+  border-radius: 0 !important;
+  padding: 0 !important;
+}
+
+.track-card-inner {
+  display: flex;
+  gap: var(--sp-4);
+  align-items: flex-start;
+}
+
+.track-icon {
+  width: 64px;
+  height: 64px;
+  border-radius: 50%;
+  flex-shrink: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 1.4rem;
+  font-weight: 700;
+}
+
+.track-icon--sanskaar { background: #FEF3C7; color: #D97706; }
+.track-icon--gyan     { background: #D1FAE5; color: #059669; font-family: var(--font-heading); }
+.track-icon--darshan  { background: #DBEAFE; color: #2563EB; }
+.track-icon--charitra { background: #EDE9FE; color: #7C3AED; }
+
+.track-content {
+  display: flex;
+  flex-direction: column;
+  gap: var(--sp-2);
+}
+
+.track-title {
+  font-family: var(--font-heading);
+  font-size: 1.125rem;
+  font-weight: 700;
+  color: var(--color-primary);
+  margin: 0;
+}
+
+.track-link-btn {
+  background: none;
+  border: none;
+  padding: 0;
+  cursor: pointer;
+  font-size: 0.9375rem;
+  font-weight: 600;
+  color: var(--color-primary);
+  font-family: inherit;
+  text-align: left;
+  margin-top: var(--sp-2);
+}
+
+.track-link-btn:hover { text-decoration: underline; }
+
+@media (max-width: 600px) {
+  .track-row { grid-template-columns: 1fr; }
+}
+
 .syllabus-card {
   background-color: var(--color-card-bg);
   border-radius: var(--r-lg);
@@ -2022,15 +2103,8 @@ details.schedule-strip[open] .schedule-strip-chevron {
 }
 
 .syllabus-card-header {
-  padding: var(--sp-4) var(--sp-5);
-  border-bottom: 1px solid var(--color-border);
-  background-color: rgba(46, 82, 163, 0.06); /* Jainism — blue tint */
+  padding: var(--sp-5) var(--sp-5) 0;
 }
-
-/* Subject-coloured header variants */
-.syllabus-card-header--hindi    { background-color: rgba(255, 208, 57, 0.12); }  /* yellow tint */
-.syllabus-card-header--yoga     { background-color: rgba(91, 33, 182, 0.06);  }  /* purple tint */
-.syllabus-card-header--prayers  { background-color: rgba(26, 92, 48, 0.06);   }  /* green tint  */
 
 .syllabus-card-title {
   font-family: var(--font-heading);
@@ -2041,7 +2115,7 @@ details.schedule-strip[open] .schedule-strip-chevron {
 }
 
 .syllabus-card-body {
-  padding: var(--sp-5);
+  padding: var(--sp-3) var(--sp-5) var(--sp-5);
   display: flex;
   flex-direction: column;
   gap: var(--sp-4);
@@ -2064,9 +2138,7 @@ details.schedule-strip[open] .schedule-strip-chevron {
 }
 
 .syllabus-card-footer {
-  padding: var(--sp-4) var(--sp-5);
-  border-top: 1px solid var(--color-border);
-  background-color: rgba(245, 240, 232, 0.5);
+  padding: 0 var(--sp-5) var(--sp-5);
 }
 
 /* Prep tips */

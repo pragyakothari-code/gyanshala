@@ -380,12 +380,19 @@
       closeBtn() +
       '<h2 class="am-heading">Your account</h2>' +
       (s && s.email ? '<p class="am-sub">' + esc(s.email) + '</p>' : '') +
-      '<button class="am-btn-ghost" id="am-edit" type="button">Edit children</button>' +
-      '<button class="am-btn-danger" id="am-out" type="button">Sign out</button>'
+      '<button class="am-btn-primary" id="am-edit" type="button">Edit children</button>' +
+      '<button class="am-btn-signout" id="am-out" type="button">Sign out</button>'
     );
+    card.style.height = 'auto';
+    card.style.minHeight = '0';
+    card.style.padding = '40px 32px 36px';
     card.querySelector('#auth-close').onclick = closeModal;
     card.querySelector('#am-edit').onclick = showOnboardingModal;
-    card.querySelector('#am-out').onclick = function () {
+    var outBtn = card.querySelector('#am-out');
+    outBtn.style.cssText = 'display:block;background:none;border:none;font-family:inherit;font-size:0.875rem;font-weight:500;color:#9ca3af;cursor:pointer;margin-top:16px;padding:0;text-align:center;width:100%;';
+    outBtn.addEventListener('mouseover', function () { this.style.color = '#dc2626'; });
+    outBtn.addEventListener('mouseout',  function () { this.style.color = '#9ca3af'; });
+    outBtn.onclick = function () {
       localStorage.removeItem(SESSION_KEY); localStorage.removeItem(PROFILE_KEY);
       closeModal(); refreshNavBtn();
     };
