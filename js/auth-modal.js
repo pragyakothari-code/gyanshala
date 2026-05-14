@@ -104,7 +104,7 @@
     card.innerHTML = innerHTML;
     overlay.appendChild(card);
     document.body.appendChild(overlay);
-    document.body.style.overflow = 'hidden';
+    document.body.classList.add('modal-open');
 
     /* Style elements inside card */
     styleCard(card);
@@ -116,7 +116,7 @@
   function closeModal() {
     var el = document.getElementById('auth-overlay');
     if (el) el.remove();
-    document.body.style.overflow = '';
+    document.body.classList.remove('modal-open');
   }
 
   /* Apply inline styles to all dynamic card elements */
