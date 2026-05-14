@@ -92,7 +92,8 @@
 
   /* ── Upcoming events shown alongside overdue chips ────────────── */
   var UPCOMING = [
-    { text: 'Final Exam — Sunday, May 17, 2026', href: 'exams.html' }
+    { text: 'Final Exam — Sunday, May 17, 2026', href: 'exams.html' },
+    { text: 'See you in Fall 2026', href: null, cls: 'summary-chip--fall' }
   ];
 
   /* ── Home page: chips inside the This Week summary card ────────── */
@@ -128,10 +129,10 @@
     }
 
     UPCOMING.forEach(function (u) {
-      var chip = document.createElement('a');
-      chip.href = u.href;
-      chip.className = 'summary-chip summary-chip--upcoming';
-      chip.textContent = '📅 ' + u.text;
+      var chip = document.createElement(u.href ? 'a' : 'span');
+      if (u.href) chip.href = u.href;
+      chip.className = 'summary-chip ' + (u.cls || 'summary-chip--upcoming');
+      chip.textContent = (u.cls === 'summary-chip--fall' ? '🍂 ' : '📅 ') + u.text;
       chipsEl.appendChild(chip);
     });
   }
@@ -198,7 +199,7 @@
       }
     });
 
-    if (isHomePage && overdueItems.length > 0) {
+    if (isHomePage && (overdueItems.length > 0 || UPCOMING.length > 0)) {
       showHomeBanner(overdueItems);
     }
   }
