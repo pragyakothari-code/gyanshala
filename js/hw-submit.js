@@ -45,8 +45,8 @@
     var badge = card.querySelector('.badge-not-submitted, .badge-submitted');
 
     if (btn) {
-      btn.textContent = 'Resubmit';
-      btn.classList.add('btn-submitted');
+      btn.textContent = 'Submit Homework';
+      btn.classList.remove('btn-submitted');
       btn.style.pointerEvents = '';
     }
     if (badge) {
