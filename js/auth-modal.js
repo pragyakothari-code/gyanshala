@@ -26,32 +26,17 @@
   function esc(s) { return String(s).replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'&quot;'); }
 
   /* ── Inject nav "Sign in" button ─────────────────────────────── */
+  var PERSON_ICON = '<svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="8" r="4"/><path d="M4 20c0-4 3.6-7 8-7s8 3 8 7"/></svg>';
+
   function injectNavButton() {
     if (document.getElementById('auth-nav-btn')) return;
     var btn = document.createElement('button');
     btn.id        = 'auth-nav-btn';
     btn.type      = 'button';
     btn.className = 'auth-nav-btn';
-    /* Inline styles so it works regardless of CSS cache */
-    btn.style.cssText = [
-      'font-family:inherit',
-      'font-size:0.875rem',
-      'font-weight:600',
-      'color:#1E3A80',
-      'background:#FFD039',
-      'border:none',
-      'border-radius:6px',
-      'padding:7px 18px',
-      'cursor:pointer',
-      'white-space:nowrap',
-      'margin-left:24px',
-      'flex-shrink:0',
-      'transition:opacity 0.15s'
-    ].join(';');
+    btn.innerHTML = '<span class="auth-nav-text"></span><span class="auth-nav-icon"></span>';
     refreshNavBtn(btn);
     btn.addEventListener('click', function () { getSession() ? showAccountModal() : showAuthModal(); });
-    btn.addEventListener('mouseover', function () { this.style.opacity = '0.85'; });
-    btn.addEventListener('mouseout',  function () { this.style.opacity = '1'; });
     var nav = document.querySelector('nav');
     if (nav) nav.appendChild(btn);
   }
@@ -60,7 +45,13 @@
     btn = btn || document.getElementById('auth-nav-btn');
     if (!btn) return;
     var s = getSession();
-    btn.textContent = s ? (s.name ? s.name.split(' ')[0] : 'Account') : 'Sign in';
+    var label = s ? (s.name ? s.name.split(' ')[0] : 'Account') : 'Sign in';
+    var initial = label.charAt(0).toUpperCase();
+    var textEl = btn.querySelector('.auth-nav-text');
+    var iconEl = btn.querySelector('.auth-nav-icon');
+    if (textEl) textEl.textContent = label;
+    if (iconEl) iconEl.innerHTML = s ? initial : PERSON_ICON;
+    btn.setAttribute('aria-label', s ? label + ' — account' : 'Sign in');
   }
 
   /* ── Modal shell ─────────────────────────────────────────────── */
