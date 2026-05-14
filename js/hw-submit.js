@@ -51,8 +51,9 @@
     }
     if (badge) {
       badge.textContent = 'Resubmit';
-      badge.className = 'badge badge-not-submitted';
+      badge.className = 'badge badge-submitted';
       badge.style.cursor = 'pointer';
+      badge.style.opacity = '0.7';
     }
   }
 
