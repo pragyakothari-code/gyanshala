@@ -412,8 +412,114 @@
     };
   }
 
+  /* ── Mobile sign-in prompt (bottom sheet) ───────────────────── */
+
+  var LOCK_SVG =
+    '<svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.3" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">' +
+      '<rect x="3" y="11" width="18" height="11" rx="2"/>' +
+      '<path d="M7 11V7a5 5 0 0 1 10 0v4"/>' +
+    '</svg>';
+
+  function showMobileSignInPrompt() {
+    if (window.innerWidth >= 768) return;
+    if (getSession()) return;
+    if (sessionStorage.getItem('gs_mobile_prompt')) return;
+    sessionStorage.setItem('gs_mobile_prompt', '1');
+
+    var overlay = document.createElement('div');
+    overlay.id = 'gs-mobile-prompt';
+    overlay.style.cssText = [
+      'position:fixed', 'inset:0', 'top:0', 'left:0', 'right:0', 'bottom:0',
+      'background:rgba(15,23,60,0.45)',
+      'z-index:9000',
+      'display:flex',
+      'align-items:flex-end',
+      'justify-content:center'
+    ].join(';');
+
+    var sheet = document.createElement('div');
+    sheet.style.cssText = [
+      'background:#fff',
+      'border-radius:22px 22px 0 0',
+      'padding:28px 20px 44px',
+      'width:100%',
+      'max-width:520px',
+      'box-shadow:0 -4px 32px rgba(15,23,60,0.18)',
+      'position:relative',
+      'box-sizing:border-box',
+      'font-family:Inter,sans-serif'
+    ].join(';');
+
+    /* ── Dismiss (X) button ── */
+    var xBtn = document.createElement('button');
+    xBtn.type = 'button';
+    xBtn.setAttribute('aria-label', 'Dismiss');
+    xBtn.innerHTML = '&#x2715;';
+    xBtn.style.cssText = 'position:absolute;top:14px;right:16px;background:none;border:none;font-size:1rem;color:#9ca3af;cursor:pointer;padding:4px 8px;border-radius:4px;line-height:1;';
+
+    /* ── Icon + text row ── */
+    var row = document.createElement('div');
+    row.style.cssText = 'display:flex;align-items:center;gap:16px;margin-bottom:22px;';
+
+    var iconWrap = document.createElement('div');
+    iconWrap.style.cssText = 'flex-shrink:0;display:flex;align-items:center;justify-content:center;';
+    iconWrap.innerHTML = '<img src="images/sign-in.png" alt="" aria-hidden="true" style="width:76px;height:76px;object-fit:contain;">';
+
+    var textWrap = document.createElement('div');
+    textWrap.style.cssText = 'flex:1;min-width:0;';
+
+    var heading = document.createElement('p');
+    heading.style.cssText = 'font-family:Lora,Georgia,serif;font-size:1.05rem;font-weight:700;color:#1E3A80;margin:0 0 7px;line-height:1.3;';
+    heading.innerHTML = 'See your children’s classes this week →';
+
+    var desc = document.createElement('p');
+    desc.style.cssText = 'font-size:0.8rem;color:#6b7280;margin:0;line-height:1.55;';
+    desc.textContent = 'View schedule, homework, attendance and important updates in one place.';
+
+    textWrap.appendChild(heading);
+    textWrap.appendChild(desc);
+    row.appendChild(iconWrap);
+    row.appendChild(textWrap);
+
+    /* ── Sign in button ── */
+    var signInBtn = document.createElement('button');
+    signInBtn.type = 'button';
+    signInBtn.style.cssText = [
+      'display:flex', 'align-items:center', 'justify-content:center', 'gap:8px',
+      'width:100%', 'font-family:inherit', 'font-size:0.9375rem', 'font-weight:700',
+      'background:#FFD039', 'color:#1E3A80',
+      'border:none', 'border-radius:10px',
+      'padding:14px 16px', 'cursor:pointer',
+      'box-sizing:border-box', 'transition:opacity 0.15s'
+    ].join(';');
+    signInBtn.innerHTML = LOCK_SVG + ' Sign in to continue';
+
+    function dismissPrompt() {
+      var el = document.getElementById('gs-mobile-prompt');
+      if (el) el.remove();
+      unlockScroll();
+    }
+
+    xBtn.onclick = dismissPrompt;
+    overlay.addEventListener('mousedown', function (e) { if (e.target === overlay) dismissPrompt(); });
+    signInBtn.addEventListener('mouseover', function () { this.style.opacity = '0.88'; });
+    signInBtn.addEventListener('mouseout',  function () { this.style.opacity = '1'; });
+    signInBtn.onclick = function () { dismissPrompt(); showAuthModal(); };
+
+    sheet.appendChild(xBtn);
+    sheet.appendChild(row);
+    sheet.appendChild(signInBtn);
+    overlay.appendChild(sheet);
+    document.body.appendChild(overlay);
+    lockScroll();
+  }
+
   /* ── Boot ────────────────────────────────────────────────────── */
-  if (document.readyState === 'loading') document.addEventListener('DOMContentLoaded', injectNavButton);
-  else injectNavButton();
+  function _boot() {
+    injectNavButton();
+    setTimeout(showMobileSignInPrompt, 600);
+  }
+  if (document.readyState === 'loading') document.addEventListener('DOMContentLoaded', _boot);
+  else _boot();
 
 })();
