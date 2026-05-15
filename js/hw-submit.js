@@ -256,6 +256,12 @@
     });
   }
 
+  /* ?reset in URL clears all submitted states (useful for demos) */
+  if (window.location.search.indexOf('reset') !== -1) {
+    localStorage.removeItem(SUBMITTED_KEY);
+    window.history.replaceState(null, '', window.location.pathname);
+  }
+
   if (document.readyState === 'loading') {
     document.addEventListener('DOMContentLoaded', init);
   } else {
