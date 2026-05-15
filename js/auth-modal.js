@@ -154,7 +154,7 @@
       el.style.cssText = 'font-size:0.8125rem;font-weight:600;color:#111827;margin-bottom:6px;text-align:left;';
     });
     card.querySelectorAll('.am-input,.am-select').forEach(function (el) {
-      el.style.cssText = 'font-family:inherit;font-size:0.9375rem;color:#111827;background:#fff;border:1.5px solid #d1d5db;border-radius:8px;padding:10px 12px;width:100%;box-sizing:border-box;appearance:none;-webkit-appearance:none;outline:none;';
+      el.style.cssText = 'font-family:inherit;font-size:1rem;color:#111827;background:#fff;border:1.5px solid #d1d5db;border-radius:8px;padding:10px 12px;width:100%;box-sizing:border-box;appearance:none;-webkit-appearance:none;outline:none;';
       el.addEventListener('focus', function () { this.style.borderColor = '#2E52A3'; this.style.boxShadow = '0 0 0 3px rgba(30,43,94,0.10)'; });
       el.addEventListener('blur',  function () { this.style.borderColor = '#d1d5db'; this.style.boxShadow = 'none'; });
     });
