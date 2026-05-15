@@ -189,7 +189,7 @@
            Apr 26 rows (due May 3) are overdue, but the May 3 page shows
            May 3 homework — don't bleed past-week status onto current cards. */
         var pageWeek = document.body.getAttribute('data-week') || '';
-        if (item.classDate && item.classDate !== pageWeek) return;
+        if (!item.classDate || item.classDate !== pageWeek) return;
 
         var parts = subject.split('·');
         var type  = (parts[0] || '').trim();
