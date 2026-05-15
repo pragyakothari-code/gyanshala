@@ -10,7 +10,7 @@
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&family=Lora:ital,wght@0,400;0,600;0,700;1,400&display=swap" rel="stylesheet">
 
-  <link rel="stylesheet" href="css/styles.css?v=52">
+  <link rel="stylesheet" href="css/styles.css?v=53">
 </head>
 <body>
 
@@ -96,7 +96,7 @@
         <div class="syllabus-grid">
 
           <!-- Sanskaar -->
-          <div class="syllabus-card">
+          <div class="syllabus-card" data-syllabus-subject="jain" data-syllabus-track="Sanskaar">
             <div class="syllabus-card-header">
               <h3 class="syllabus-card-title">Sanskaar</h3>
             </div>
@@ -116,7 +116,7 @@
           </div>
 
           <!-- Gyan -->
-          <div class="syllabus-card">
+          <div class="syllabus-card" data-syllabus-subject="jain" data-syllabus-track="Gyan">
             <div class="syllabus-card-header">
               <h3 class="syllabus-card-title">Gyan</h3>
             </div>
@@ -136,7 +136,7 @@
           </div>
 
           <!-- Darshan -->
-          <div class="syllabus-card">
+          <div class="syllabus-card" data-syllabus-subject="jain" data-syllabus-track="Darshan">
             <div class="syllabus-card-header">
               <h3 class="syllabus-card-title">Darshan</h3>
             </div>
@@ -156,7 +156,7 @@
           </div>
 
           <!-- Charitra -->
-          <div class="syllabus-card">
+          <div class="syllabus-card" data-syllabus-subject="jain" data-syllabus-track="Charitra">
             <div class="syllabus-card-header">
               <h3 class="syllabus-card-title">Charitra</h3>
             </div>
@@ -184,7 +184,7 @@
         <div class="syllabus-grid">
 
           <!-- Hindi Beginner -->
-          <div class="syllabus-card">
+          <div class="syllabus-card" data-syllabus-subject="hindi" data-syllabus-track="Beginner">
             <div class="syllabus-card-header syllabus-card-header--hindi">
               <h3 class="syllabus-card-title">Beginner</h3>
             </div>
@@ -204,7 +204,7 @@
           </div>
 
           <!-- Hindi Intermediate -->
-          <div class="syllabus-card">
+          <div class="syllabus-card" data-syllabus-subject="hindi" data-syllabus-track="Intermediate">
             <div class="syllabus-card-header syllabus-card-header--hindi">
               <h3 class="syllabus-card-title">Intermediate</h3>
             </div>
@@ -224,7 +224,7 @@
           </div>
 
           <!-- Hindi Advanced -->
-          <div class="syllabus-card">
+          <div class="syllabus-card" data-syllabus-subject="hindi" data-syllabus-track="Advanced">
             <div class="syllabus-card-header syllabus-card-header--hindi">
               <h3 class="syllabus-card-title">Advanced</h3>
             </div>
@@ -457,6 +457,72 @@
     document.addEventListener('keydown', function (e) {
       if ((e.key === 'Escape' || e.key === 'Esc') && !overlay.hidden) closeModal();
     });
+  })();
+  </script>
+  <script>
+  /* ── Personalise syllabus by child profile ─────────────────────── */
+  (function () {
+    'use strict';
+    var profile;
+    try { profile = JSON.parse(localStorage.getItem('gyanshala_profile')); } catch (_) {}
+    if (!profile || !profile.children || !profile.children.length) return;
+
+    var children = profile.children;
+
+    /* Build track → child-name arrays */
+    var jainMap  = {};
+    var hindiMap = {};
+    children.forEach(function (c) {
+      if (c.jain) {
+        jainMap[c.jain] = jainMap[c.jain] || [];
+        jainMap[c.jain].push(c.name || 'Child');
+      }
+      if (c.hindi && c.hindi !== 'none') {
+        hindiMap[c.hindi] = hindiMap[c.hindi] || [];
+        hindiMap[c.hindi].push(c.name || 'Child');
+      }
+    });
+
+    function addBadge(card, names) {
+      var header = card.querySelector('.syllabus-card-header');
+      if (!header) return;
+      var badge = document.createElement('span');
+      badge.style.cssText = [
+        'display:inline-block', 'font-family:Inter,sans-serif',
+        'font-size:0.72rem', 'font-weight:600',
+        'color:#2E52A3', 'background:#EEF1FA',
+        'border-radius:20px', 'padding:2px 10px',
+        'margin-top:6px', 'letter-spacing:0.01em'
+      ].join(';');
+      badge.textContent = names.join(' & ');
+      header.appendChild(badge);
+    }
+
+    /* Filter Jainism cards */
+    var jainVisible = 0;
+    document.querySelectorAll('[data-syllabus-subject="jain"]').forEach(function (card) {
+      var names = jainMap[card.getAttribute('data-syllabus-track')];
+      if (names) { addBadge(card, names); jainVisible++; }
+      else card.style.display = 'none';
+    });
+
+    /* Filter Hindi cards */
+    var hindiVisible = 0;
+    document.querySelectorAll('[data-syllabus-subject="hindi"]').forEach(function (card) {
+      var names = hindiMap[card.getAttribute('data-syllabus-track')];
+      if (names) { addBadge(card, names); hindiVisible++; }
+      else card.style.display = 'none';
+    });
+
+    /* Hide entire sections if nothing to show */
+    if (jainVisible === 0) {
+      var s = document.querySelector('[aria-labelledby="syllabus-heading"]');
+      if (s) s.style.display = 'none';
+    }
+    if (hindiVisible === 0) {
+      var h = document.querySelector('[aria-labelledby="hindi-syllabus-heading"]');
+      if (h) h.style.display = 'none';
+    }
   })();
   </script>
   <script src="js/auth-modal.js?v=10"></script>
