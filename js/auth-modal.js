@@ -50,7 +50,7 @@
     var textEl = btn.querySelector('.auth-nav-text');
     var iconEl = btn.querySelector('.auth-nav-icon');
     if (textEl) textEl.textContent = label;
-    if (iconEl) iconEl.innerHTML = s ? initial : PERSON_ICON;
+    if (iconEl) iconEl.innerHTML = (s && window.innerWidth >= 768) ? initial : PERSON_ICON;
     btn.setAttribute('aria-label', s ? label + ' — account' : 'Sign in');
     /* Hide on mobile only when signed out — popup handles that case */
     if (s) btn.classList.remove('signed-out');
