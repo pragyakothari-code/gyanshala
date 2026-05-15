@@ -247,7 +247,7 @@
         return;
       }
       /* Resubmit pill */
-      var badge = e.target.closest('.badge-not-submitted');
+      var badge = e.target.closest('.badge-submitted');
       if (badge && badge.textContent.trim() === 'Resubmit') {
         e.preventDefault();
         var card2 = badge.closest('.class-card');
