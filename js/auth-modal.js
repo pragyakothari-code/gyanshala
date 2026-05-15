@@ -5,6 +5,7 @@
   var PROFILE_KEY = 'gyanshala_profile';
   var childCounter = 0;
   var _savedScrollY = 0;
+  var _vpListener = null;
 
   /* ── Scroll lock / unlock (iOS-safe) ─────────────────────────── */
   function lockScroll() {
@@ -114,6 +115,7 @@
     overlay.appendChild(card);
     document.body.appendChild(overlay);
     lockScroll();
+    _attachVP();
 
     /* Style elements inside card */
     styleCard(card);
@@ -122,9 +124,35 @@
     return card;
   }
 
+  /* Resize overlay to the visual viewport so iOS keyboard doesn't hide content */
+  function _applyVP() {
+    var el = document.getElementById('auth-overlay');
+    if (!el || !window.visualViewport) return;
+    var vp = window.visualViewport;
+    el.style.top    = vp.offsetTop  + 'px';
+    el.style.height = vp.height     + 'px';
+    el.style.bottom = 'auto';
+  }
+
+  function _attachVP() {
+    if (!window.visualViewport || _vpListener) return;
+    _vpListener = _applyVP;
+    window.visualViewport.addEventListener('resize', _vpListener);
+    window.visualViewport.addEventListener('scroll', _vpListener);
+    _applyVP();
+  }
+
+  function _detachVP() {
+    if (!window.visualViewport || !_vpListener) return;
+    window.visualViewport.removeEventListener('resize', _vpListener);
+    window.visualViewport.removeEventListener('scroll', _vpListener);
+    _vpListener = null;
+  }
+
   function closeModal() {
     var el = document.getElementById('auth-overlay');
     if (el) el.remove();
+    _detachVP();
     unlockScroll();
   }
 
@@ -411,7 +439,8 @@
     outBtn.addEventListener('mouseout',  function () { this.style.color = '#9ca3af'; });
     outBtn.onclick = function () {
       localStorage.removeItem(SESSION_KEY); localStorage.removeItem(PROFILE_KEY);
-      closeModal(); refreshNavBtn();
+      closeModal();
+      window.location.href = 'index.html';
     };
   }
 
