@@ -52,6 +52,9 @@
     if (textEl) textEl.textContent = label;
     if (iconEl) iconEl.innerHTML = s ? initial : PERSON_ICON;
     btn.setAttribute('aria-label', s ? label + ' — account' : 'Sign in');
+    /* Hide on mobile only when signed out — popup handles that case */
+    if (s) btn.classList.remove('signed-out');
+    else btn.classList.add('signed-out');
   }
 
   /* ── Modal shell ─────────────────────────────────────────────── */

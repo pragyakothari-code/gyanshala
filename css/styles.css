@@ -2614,9 +2614,9 @@ body.auth-open { overflow: hidden; }
 }
 .auth-nav-btn:hover { opacity: 0.88; }
 
-/* Hide nav auth button on mobile — the bottom-sheet prompt handles sign-in */
+/* Hide nav auth button on mobile only when signed out — popup handles it */
 @media (max-width: 767px) {
-  .auth-nav-btn { display: none !important; }
+  .auth-nav-btn.signed-out { display: none !important; }
 }
 
 /* Overlay */
