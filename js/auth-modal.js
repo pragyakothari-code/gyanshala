@@ -130,32 +130,39 @@
     if (!overlay || !window.visualViewport) return;
     var vp = window.visualViewport;
 
-    /* Shrink the overlay to the visible area */
     overlay.style.top    = vp.offsetTop + 'px';
     overlay.style.height = vp.height    + 'px';
     overlay.style.bottom = 'auto';
 
-    /* When keyboard is open (viewport notably smaller than screen), constrain the
-       card height so it fits inside the visible area and align it to the top so
-       buttons don't get pushed below the keyboard accessory bar. */
     var card = overlay.querySelector('[role="dialog"]');
     if (!card) return;
+
     var keyboardOpen = vp.height < window.screen.height * 0.75;
     if (keyboardOpen) {
-      var maxH = Math.max(240, vp.height - 32);
-      card.style.height        = 'auto';
-      card.style.maxHeight     = maxH + 'px';
-      card.style.overflowY     = 'auto';
+      /* Fill the entire visible viewport — card sits flush against the keyboard
+         with no gap for the iOS autofill bar to float in. Flat bottom corners
+         signal the card meets the keyboard edge. */
+      overlay.style.alignItems  = 'flex-start';
+      overlay.style.padding     = '0';
+      card.style.height         = vp.height + 'px';
+      card.style.maxHeight      = vp.height + 'px';
+      card.style.borderRadius   = '0';
+      card.style.overflowY      = 'auto';
       card.style.justifyContent = 'flex-start';
-      /* Scroll focused element into view inside the card */
+      card.style.paddingTop     = '24px';
+      /* Scroll focused element into view within the card */
       setTimeout(function () {
         var active = document.activeElement;
-        if (active && card.contains(active)) active.scrollIntoView({ block: 'nearest', behavior: 'smooth' });
+        if (active && card.contains(active)) active.scrollIntoView({ block: 'center', behavior: 'smooth' });
       }, 80);
     } else {
+      overlay.style.alignItems  = 'center';
+      overlay.style.padding     = '20px 16px';
       card.style.height         = '520px';
       card.style.maxHeight      = 'calc(100vh - 40px)';
+      card.style.borderRadius   = '18px';
       card.style.justifyContent = 'center';
+      card.style.paddingTop     = '44px';
     }
   }
 
