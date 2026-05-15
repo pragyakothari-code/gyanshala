@@ -124,60 +124,49 @@
     return card;
   }
 
-  /* Resize overlay + card to the visual viewport so iOS keyboard/toolbar doesn't hide content */
-  function _applyVP() {
+  /* On iOS, when an input is focused the keyboard + autofill bar slides up and
+     can cover buttons. We listen for focusin on any input inside the modal,
+     wait for the keyboard to finish opening, then scroll the card so the
+     primary action button sits above the autofill bar zone (~80 px from bottom). */
+  function _onModalFocusIn(e) {
+    var tag = e.target && e.target.tagName;
+    if (tag !== 'INPUT' && tag !== 'SELECT' && tag !== 'TEXTAREA') return;
     var overlay = document.getElementById('auth-overlay');
-    if (!overlay || !window.visualViewport) return;
-    var vp = window.visualViewport;
+    if (!overlay || !overlay.contains(e.target)) return;
 
-    overlay.style.top    = vp.offsetTop + 'px';
-    overlay.style.height = vp.height    + 'px';
-    overlay.style.bottom = 'auto';
+    setTimeout(function () {
+      var card = overlay.querySelector('[role="dialog"]');
+      if (!card) return;
 
-    var card = overlay.querySelector('[role="dialog"]');
-    if (!card) return;
-
-    var keyboardOpen = vp.height < window.screen.height * 0.75;
-    if (keyboardOpen) {
-      /* Fill the entire visible viewport — card sits flush against the keyboard
-         with no gap for the iOS autofill bar to float in. Flat bottom corners
-         signal the card meets the keyboard edge. */
-      overlay.style.alignItems  = 'flex-start';
-      overlay.style.padding     = '0';
-      card.style.height         = vp.height + 'px';
-      card.style.maxHeight      = vp.height + 'px';
-      card.style.borderRadius   = '0';
+      /* Shrink card to the visual viewport so it doesn't extend behind keyboard */
+      var visH = window.visualViewport ? window.visualViewport.height : window.innerHeight;
+      card.style.height         = 'auto';
+      card.style.maxHeight      = (visH - 16) + 'px';
       card.style.overflowY      = 'auto';
       card.style.justifyContent = 'flex-start';
-      card.style.paddingTop     = '24px';
-      /* Scroll focused element into view within the card */
-      setTimeout(function () {
-        var active = document.activeElement;
-        if (active && card.contains(active)) active.scrollIntoView({ block: 'center', behavior: 'smooth' });
-      }, 80);
-    } else {
-      overlay.style.alignItems  = 'center';
-      overlay.style.padding     = '20px 16px';
-      card.style.height         = '520px';
-      card.style.maxHeight      = 'calc(100vh - 40px)';
-      card.style.borderRadius   = '18px';
-      card.style.justifyContent = 'center';
-      card.style.paddingTop     = '44px';
-    }
+
+      /* Scroll card so the primary button is above the autofill-bar dead zone */
+      var btn = card.querySelector('.am-btn-primary') || card.querySelector('.am-btn-accent');
+      if (btn) {
+        var SAFE = 80; /* px to keep clear of autofill bar */
+        var cardRect = card.getBoundingClientRect();
+        var btnRect  = btn.getBoundingClientRect();
+        var btnBottomRelative = btnRect.bottom - cardRect.top + card.scrollTop;
+        var targetScroll = btnBottomRelative - (card.clientHeight - SAFE);
+        if (targetScroll > 0) card.scrollTop = targetScroll;
+      }
+    }, 380); /* wait for iOS keyboard animation */
   }
 
   function _attachVP() {
-    if (!window.visualViewport || _vpListener) return;
-    _vpListener = _applyVP;
-    window.visualViewport.addEventListener('resize', _vpListener);
-    window.visualViewport.addEventListener('scroll', _vpListener);
-    _applyVP();
+    if (_vpListener) return;
+    _vpListener = _onModalFocusIn;
+    document.addEventListener('focusin', _vpListener);
   }
 
   function _detachVP() {
-    if (!window.visualViewport || !_vpListener) return;
-    window.visualViewport.removeEventListener('resize', _vpListener);
-    window.visualViewport.removeEventListener('scroll', _vpListener);
+    if (!_vpListener) return;
+    document.removeEventListener('focusin', _vpListener);
     _vpListener = null;
   }
 
