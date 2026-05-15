@@ -124,14 +124,39 @@
     return card;
   }
 
-  /* Resize overlay to the visual viewport so iOS keyboard doesn't hide content */
+  /* Resize overlay + card to the visual viewport so iOS keyboard/toolbar doesn't hide content */
   function _applyVP() {
-    var el = document.getElementById('auth-overlay');
-    if (!el || !window.visualViewport) return;
+    var overlay = document.getElementById('auth-overlay');
+    if (!overlay || !window.visualViewport) return;
     var vp = window.visualViewport;
-    el.style.top    = vp.offsetTop  + 'px';
-    el.style.height = vp.height     + 'px';
-    el.style.bottom = 'auto';
+
+    /* Shrink the overlay to the visible area */
+    overlay.style.top    = vp.offsetTop + 'px';
+    overlay.style.height = vp.height    + 'px';
+    overlay.style.bottom = 'auto';
+
+    /* When keyboard is open (viewport notably smaller than screen), constrain the
+       card height so it fits inside the visible area and align it to the top so
+       buttons don't get pushed below the keyboard accessory bar. */
+    var card = overlay.querySelector('[role="dialog"]');
+    if (!card) return;
+    var keyboardOpen = vp.height < window.screen.height * 0.75;
+    if (keyboardOpen) {
+      var maxH = Math.max(240, vp.height - 32);
+      card.style.height        = 'auto';
+      card.style.maxHeight     = maxH + 'px';
+      card.style.overflowY     = 'auto';
+      card.style.justifyContent = 'flex-start';
+      /* Scroll focused element into view inside the card */
+      setTimeout(function () {
+        var active = document.activeElement;
+        if (active && card.contains(active)) active.scrollIntoView({ block: 'nearest', behavior: 'smooth' });
+      }, 80);
+    } else {
+      card.style.height         = '520px';
+      card.style.maxHeight      = 'calc(100vh - 40px)';
+      card.style.justifyContent = 'center';
+    }
   }
 
   function _attachVP() {
