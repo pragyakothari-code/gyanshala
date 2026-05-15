@@ -473,7 +473,7 @@
 
     var heading = document.createElement('p');
     heading.style.cssText = 'font-family:Lora,Georgia,serif;font-size:1.05rem;font-weight:700;color:#1E3A80;margin:0 0 7px;line-height:1.3;';
-    heading.innerHTML = 'See your children’s classes this week →';
+    heading.innerHTML = 'See your children’s classes this week →';
 
     var desc = document.createElement('p');
     desc.style.cssText = 'font-size:0.8rem;color:#6b7280;margin:0;line-height:1.55;';
