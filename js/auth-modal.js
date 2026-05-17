@@ -124,10 +124,11 @@
     return card;
   }
 
-  /* On iOS, when an input is focused the keyboard + autofill bar slides up and
-     can cover buttons. We listen for focusin on any input inside the modal,
-     wait for the keyboard to finish opening, then scroll the card so the
-     primary action button sits above the autofill bar zone (~80 px from bottom). */
+  /* iOS keyboard fix: when an input inside the modal is focused, wait for the
+     keyboard to finish opening then:
+     1. Resize the overlay to the visual viewport (eliminates the gap)
+     2. Make the card fill the overlay (no gap inside)
+     3. Scroll the card so the primary button clears the autofill-bar dead zone */
   function _onModalFocusIn(e) {
     var tag = e.target && e.target.tagName;
     if (tag !== 'INPUT' && tag !== 'SELECT' && tag !== 'TEXTAREA') return;
@@ -135,27 +136,39 @@
     if (!overlay || !overlay.contains(e.target)) return;
 
     setTimeout(function () {
+      var vp   = window.visualViewport;
+      var visH = vp ? vp.height    : window.innerHeight;
+      var visT = vp ? vp.offsetTop : 0;
+
+      /* 1. Shrink overlay to the actual visible area so no gap shows below card */
+      overlay.style.top         = visT + 'px';
+      overlay.style.height      = visH + 'px';
+      overlay.style.bottom      = 'auto';
+      overlay.style.alignItems  = 'flex-start';
+      overlay.style.padding     = '0';
+
       var card = overlay.querySelector('[role="dialog"]');
       if (!card) return;
 
-      /* Shrink card to the visual viewport so it doesn't extend behind keyboard */
-      var visH = window.visualViewport ? window.visualViewport.height : window.innerHeight;
-      card.style.height         = 'auto';
-      card.style.maxHeight      = (visH - 16) + 'px';
+      /* 2. Card fills the overlay exactly */
+      card.style.height         = visH + 'px';
+      card.style.maxHeight      = visH + 'px';
+      card.style.borderRadius   = '18px 18px 0 0';
       card.style.overflowY      = 'auto';
       card.style.justifyContent = 'flex-start';
+      card.style.paddingTop     = '32px';
 
-      /* Scroll card so the primary button is above the autofill-bar dead zone */
+      /* 3. Scroll so the primary button is 80 px above the card bottom
+            (above the ~44 px autofill-bar dead zone, with buffer) */
       var btn = card.querySelector('.am-btn-primary') || card.querySelector('.am-btn-accent');
       if (btn) {
-        var SAFE = 80; /* px to keep clear of autofill bar */
-        var cardRect = card.getBoundingClientRect();
-        var btnRect  = btn.getBoundingClientRect();
-        var btnBottomRelative = btnRect.bottom - cardRect.top + card.scrollTop;
-        var targetScroll = btnBottomRelative - (card.clientHeight - SAFE);
-        if (targetScroll > 0) card.scrollTop = targetScroll;
+        var SAFE   = 80;
+        var cardT  = card.getBoundingClientRect().top;
+        var btnB   = btn.getBoundingClientRect().bottom;
+        var target = (btnB - cardT + card.scrollTop) - (card.clientHeight - SAFE);
+        if (target > 0) card.scrollTop = target;
       }
-    }, 380); /* wait for iOS keyboard animation */
+    }, 380);
   }
 
   function _attachVP() {
